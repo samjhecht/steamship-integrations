@@ -17,7 +17,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 |---|---|---|---|---|---|---|---|---|
 | Maersk Line | MAEU | Maersk / 2M | | | | [developer.maersk.com](https://developer.maersk.com) | Not Started | Not Started |
 | Mediterranean Shipping Company (MSC) | MSCU | MSC Group / 2M | | | | | Not Started | Not Started |
-| Hapag-Lloyd | HLCU | Hapag-Lloyd / THE Alliance | | | | | Not Started | Not Started |
+| Hapag-Lloyd | HLCU | Hapag-Lloyd / THE Alliance | Full Suite (BETA) | Yes — TNT v2.2, CS v1.0, OVS v3.0 | API Key (IBM API Connect) | [api-portal.hlag.com](https://api-portal.hlag.com) | Complete | Not Started |
 | Grimaldi Lines | GRIM | Grimaldi Group / Independent | | | | | Not Started | Not Started |
 | Evergreen Line | EGLV | Evergreen Group / Ocean Alliance | | | | | Not Started | Not Started |
 
