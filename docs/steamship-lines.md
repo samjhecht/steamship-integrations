@@ -16,7 +16,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Carrier Name | SCAC | Parent / Alliance | API Status | DCSA | Auth Type | Developer Portal | Audit | Adapter |
 |---|---|---|---|---|---|---|---|---|
 | Maersk Line | MAEU | Maersk / 2M | | | | [developer.maersk.com](https://developer.maersk.com) | Not Started | Not Started |
-| Mediterranean Shipping Company (MSC) | MSCU | MSC Group / 2M | | | | | Not Started | Not Started |
+| Mediterranean Shipping Company (MSC) | MSCU | MSC Group / 2M | Tracking + Schedules | Yes (TNT v2.2, CS) | Partner Required (onboarding) | [developerportal.msc.com](https://developerportal.msc.com/) | Complete | Not Started |
 | Hapag-Lloyd | HLCU | Hapag-Lloyd / THE Alliance | | | | | Not Started | Not Started |
 | Grimaldi Lines | GRIM | Grimaldi Group / Independent | | | | | Not Started | Not Started |
 | Evergreen Line | EGLV | Evergreen Group / Ocean Alliance | | | | | Not Started | Not Started |
