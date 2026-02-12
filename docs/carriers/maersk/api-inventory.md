@@ -49,10 +49,10 @@
 |--------|-------|
 | **DCSA member?** | Yes — founding member of DCSA |
 | **DCSA APIs implemented** | TNT (Track & Trace), BKG (Booking), CS (Commercial Schedules) |
-| **DCSA TNT version** | v2 and v3 (both confirmed live — `/synergy/tracking/v2/events` and `/track-and-trace/v3/events`) |
+| **DCSA TNT version** | v2 and v3 (both confirmed live — `/synergy/tracking/v2/events` and `/track-and-trace/v3/events`). **Note:** The GitHub master branch (`tnt/v3/tnt.yaml`) contains TNT v3.0.0-Beta-1 (March 2023). A redesigned TNT 3.0.0 is published on SwaggerHub but remains in alpha/design iterations (20250912-design, 20251121-alpha, 20260116-alpha). Maersk's live `/track-and-trace/v3/` endpoints align with the **Beta-1** design pattern (subscription endpoints, event filtering), not the redesigned 3.0.0 architecture. |
 | **DCSA Booking version** | v2.x (booking endpoints exist but exact Maersk path not confirmed as 404 at `/booking/v2/bookings` — likely behind a different path prefix) |
 | **DCSA Schedules version** | v1.x (`/schedules/v1/vessel-schedules`, `/schedules/v1/port-schedules`, `/schedules/v1/point-to-point-routes` all confirmed live) |
-| **Known DCSA deviations** | None documented publicly. As a DCSA founding member, Maersk is the reference implementation. Minor deviations may exist between DCSA spec versions — Maersk appears to run both v2 and v3 TNT endpoints simultaneously. Some endpoints use different path prefixes than the DCSA spec paths (e.g., `/synergy/tracking/v2/` vs. spec's `/v2/events`) |
+| **Known DCSA deviations** | None documented publicly. As a DCSA founding member, Maersk is among the most complete DCSA implementors. Minor deviations may exist between DCSA spec versions — Maersk appears to run both v2 and v3 TNT endpoints simultaneously. Some endpoints use different path prefixes than the DCSA spec paths (e.g., `/synergy/tracking/v2/` vs. spec's `/v2/events`) |
 
 ### Other Standards
 
@@ -115,15 +115,15 @@ For production usage with higher rate limits or access to additional APIs (e.g.,
 | 1.1 | Vessel & Port Schedules | ✅ | `GET /schedules/v1/vessel-schedules`, `GET /schedules/v1/port-schedules` | Vessel rotation objects with port calls, ETAs/ETDs | DCSA CS v1 `vessel-schedules`, `port-schedules` | Both endpoints confirmed live (401). Also available at `/v1/products/ocean-schedules` |
 | 1.2 | Point-to-Point Route Options | ✅ | `GET /schedules/v1/point-to-point-routes` | `PointToPoint` objects with `legs[]`, `transitTime`, `cutOffTimes[]` | DCSA CS v1 `point-to-point-routes` | Confirmed live (401). Supports UNLocationCode, date ranges, maxTransshipment filter |
 | 1.3 | Booking Lifecycle | ✅ | Booking API (exact Maersk path unconfirmed — `/booking/v2/` returned 404; likely different prefix) | Booking status, `transportPlan[]`, `shipmentCutOffTimes[]`, `carrierClauses[]` | DCSA BKG v2 `/v2/bookings` | DCSA BKG spec confirms GET/POST/PUT/DELETE for bookings + `/v2/booking-notifications` for push |
-| 1.4 | Shipping Instructions | ⚠️ | Unknown Maersk path (eDocumentation endpoints returned 404 at probed paths) | ShipmentEvent with `documentTypeCode=SHI` | DCSA eDocumentation API | Maersk likely implements eDocumentation but specific endpoints not confirmed. Track via ShipmentEvents in TNT API |
+| 1.4 | Shipping Instructions | ⚠️ | Unknown Maersk path (EBL/eDocumentation endpoints returned 404 at probed paths) | ShipmentEvent with `documentTypeCode=SHI` | DCSA EBL (Electronic Bill of Lading) API (`github.com/dcsaorg/DCSA-OpenAPI/tree/master/ebl`) | Maersk likely implements the EBL API but specific endpoints not confirmed. Track via ShipmentEvents in TNT API |
 | 1.5 | Rates | ✅ | `GET /rates/spot` | Proprietary spot rate response | **Not DCSA** — proprietary Maersk API | Confirmed live (401). Maersk is one of few carriers with a public rate API |
 
 ### Document & Cargo Cutoffs (Section 2)
 
 | # | Canonical Field | Abbrev | Available? | Carrier Endpoint | Carrier Field/Event Code | DCSA Mapping | Notes |
 |---|----------------|--------|-----------|-----------------|-------------------------|-------------|-------|
-| 2.1 | Earliest Container Release Date | ERD | ✅ | Booking confirmation response; also in CS point-to-point response | `cutOffDateTimeCode: "ECP"` in `shipmentCutOffTimes[]` | `ECP` | Available in confirmed booking and schedule responses |
-| 2.2 | Earliest Full-Container Delivery Date | EFC | ✅ | Booking confirmation response; also in CS point-to-point response | `cutOffDateTimeCode: "EFC"` in `shipmentCutOffTimes[]` | `EFC` | Available in confirmed booking and schedule responses |
+| 2.1 | Earliest Container Release Date | ERD | ✅ | CS point-to-point response (`GET /schedules/v1/point-to-point-routes`) | `cutOffDateTimeCode: "ECP"` in `cutOffTimes[]` (CS v1 CutOffTime schema) | `ECP` | ECP is defined in the CS v1 `CutOffTime` schema only — **not** in the BKG v2 `ShipmentCutOffTime` schema |
+| 2.2 | Earliest Full-Container Delivery Date | EFC | ✅ | Booking confirmation response (`shipmentCutOffTimes[]` in BKG v2) and CS point-to-point response (`cutOffTimes[]` in CS v1) | `cutOffDateTimeCode: "EFC"` in `shipmentCutOffTimes[]` (BKG v2) or `cutOffTimes[]` (CS v1) | `EFC` | Available in both DCSA BKG v2 `ShipmentCutOffTime` and CS v1 `CutOffTime` schemas |
 | 2.3 | Documentation Cutoff | DCO | ✅ | Booking confirmation response; also in CS point-to-point response | `cutOffDateTimeCode: "DCO"` in `shipmentCutOffTimes[]` | `DCO` | Confirmed in DCSA BKG v2 spec examples: `"cutOffDateTimeCode": "DCO"` with `"cutOffDateTime"` |
 | 2.4 | VGM Cutoff | VCO | ✅ | Booking confirmation response | `cutOffDateTimeCode: "VCO"` in `shipmentCutOffTimes[]` | `VCO` | Confirmed in DCSA BKG v2 spec examples |
 | 2.5 | Container/Cargo Cutoff (FCL) | FCO | ✅ | Booking confirmation response | `cutOffDateTimeCode: "FCO"` in `shipmentCutOffTimes[]` | `FCO` | Confirmed in DCSA BKG v2 spec examples |
@@ -175,10 +175,10 @@ For production usage with higher rate limits or access to additional APIs (e.g.,
 | **Total** | **28/30** | **0/30** | **2/30** | **93%** |
 
 > **Notes on Coverage:**
-> - Shipping Instructions (1.4) marked ⚠️: likely available via ShipmentEvents in TNT but dedicated eDocumentation endpoint path not confirmed
+> - Shipping Instructions (1.4) marked ⚠️: likely available via ShipmentEvents in TNT but dedicated EBL (Electronic Bill of Lading) endpoint path not confirmed
 > - LCL Cutoff (2.6) marked ⚠️: conditionally available only for CFS shipments — standard DCSA behavior
 > - All container milestones and transport events are fully covered through DCSA TNT v3
-> - All change detection mechanisms are supported — Maersk is the DCSA reference implementation
+> - All change detection mechanisms are supported — Maersk is among the most complete DCSA implementors
 
 ---
 
@@ -188,7 +188,7 @@ For production usage with higher rate limits or access to additional APIs (e.g.,
 
 | Endpoint | Method | Lookup Params | Pagination | Response Format | Notes |
 |----------|--------|--------------|------------|----------------|-------|
-| `/track-and-trace/v3/events` | GET | `documentTypeCodes` (BKG, TRD), `documentReference` (B/L or booking ref), `equipmentReference` (container #), `vesselIMONumber`, `carrierServiceCode`, `eventTypes` (SHIPMENT, TRANSPORT, EQUIPMENT), `eventCreatedDateTime` (for incremental polling) | Cursor-based: `limit` + `Current-Page`/`Next-Page`/`Prev-Page`/`Last-Page`/`First-Page` headers | JSON (DCSA event array) | **Primary tracking endpoint (v3)**. API Key auth. Confirmed live |
+| `/track-and-trace/v3/events` | GET | `documentTypeCodes` (BKG, TRD), `documentReference` (B/L or booking ref), `equipmentReference` (container #), `vesselIMONumber`, `carrierServiceCode`, `eventTypes` (SHIPMENT, TRANSPORT, EQUIPMENT), `eventCreatedDateTime` (for incremental polling) | Header-based: `limit` param + `Current-Page`/`Next-Page`/`Previous-Page`/`Last-Page`/`First-Page` response headers (note: DCSA spec says `Prev-Page` but Maersk returns `Previous-Page`) | JSON (DCSA event array) | **Primary tracking endpoint (v3)**. API Key auth. Confirmed live |
 | `/track-and-trace/v3/events/{eventID}` | GET | `eventID` path param | N/A (single event) | JSON (DCSA event) | Retrieve a single event by ID |
 | `/synergy/tracking/v2/events` | GET | Same as v3 with v2 schema | Page-based headers | JSON (DCSA event array) | **Legacy v2 tracking endpoint**. OAuth2 auth. Confirmed live. May be deprecated in favor of v3 |
 | `/ecommerce/tracking/v2/events` | GET | `billOfLadingNumber`, likely similar to above | Unknown | JSON | **E-commerce tracking variant**. API Key auth. Confirmed live |
@@ -360,11 +360,11 @@ For production usage with higher rate limits or access to additional APIs (e.g.,
 |--------|-----------|
 | **Can we build a useful adapter?** | Yes — Maersk has the most comprehensive API surface of any ocean carrier. Full tracking, schedules, cutoffs, webhooks, and even rates are available |
 | **Implementation effort** | Low (DCSA passthrough with path mapping) — Maersk implements DCSA standards; mapping is straightforward. Minor complexity from dual auth and path prefixes |
-| **DCSA base adapter usable?** | Yes — Maersk is the DCSA reference implementation. A shared DCSA base adapter can handle 90%+ of the logic; Maersk adapter adds path prefix mapping and auth handling |
+| **DCSA base adapter usable?** | Yes — Maersk is among the most complete DCSA implementors. A shared DCSA base adapter can handle 90%+ of the logic; Maersk adapter adds path prefix mapping and auth handling |
 
 ### Recommended Approach
 
-The Maersk adapter should be built as the **reference implementation** for the DCSA base adapter class. Since Maersk follows DCSA standards closely, the adapter architecture should be:
+The Maersk adapter should be built as the **first implementation** for the DCSA base adapter class, given Maersk's comprehensive DCSA compliance. Since Maersk follows DCSA standards closely, the adapter architecture should be:
 
 1. **DCSA Base Adapter**: Handles event parsing, normalization to canonical model, pagination traversal, subscription management, and event classifier progression logic. This base class is reusable across all DCSA-compliant carriers.
 
@@ -457,7 +457,7 @@ The only non-trivial mapping is combining multiple DCSA event fields into our co
 - [ ] **What is the OAuth2 token lifetime?** — Estimated ~1 hour; needs live verification
 - [ ] **How far back does historical event data go?** — Estimated ~90–180 days; needs live verification
 - [ ] **What test data is available in the Maersk sandbox environment?** — Discoverable after registration
-- [ ] **Does Maersk implement the DCSA eDocumentation API for Shipping Instructions?** — eDoc endpoint paths returned 404; may need different prefix or may not be implemented
+- [ ] **Does Maersk implement the DCSA EBL (Electronic Bill of Lading) API for Shipping Instructions?** — EBL endpoint paths returned 404; may need different prefix or may not be implemented
 - [ ] **Are rate limits enforced per Consumer-Key, per OAuth client, or per IP?** — Needs live testing or developer portal documentation review
 - [ ] **Is there a Maersk-specific webhook reliability SLA?** — Not publicly documented; may be in partner documentation
 
@@ -478,6 +478,6 @@ The only non-trivial mapping is combining multiple DCSA event fields into our co
 | DCSA TNT v3 Spec | https://github.com/dcsaorg/DCSA-OpenAPI/tree/master/tnt/v3 |
 | DCSA BKG v2 Spec | https://github.com/dcsaorg/DCSA-OpenAPI/tree/master/bkg/v2 |
 | DCSA CS v1 Spec | https://github.com/dcsaorg/DCSA-OpenAPI/tree/master/cs/v1 |
-| DCSA SwaggerHub (TNT v3) | https://app.swaggerhub.com/apis/dcsaorg/DCSA-TNT/3.0.0 |
+| DCSA SwaggerHub (TNT v3) | https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/3.0.0 |
 | DCSA Developer Page | https://developer.dcsa.org |
 | DCSA Adoption API Spec | https://github.com/dcsaorg/DCSA-OpenAPI/tree/master/adopt/v1 |

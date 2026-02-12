@@ -15,9 +15,9 @@
 | **Carrier Name** | Mediterranean Shipping Company S.A. (MSC) |
 | **SCAC Code** | MSCU |
 | **Parent Company** | MSC Group (private, family-owned, Aponte family) |
-| **Alliance** | 2M (with Maersk) |
+| **Alliance** | None (formerly 2M with Maersk, ended January 2025) |
 | **Primary Services** | Container shipping (primary), logistics, terminal operations, cruises (via MSC Cruises) |
-| **Market Position** | Second-largest container carrier globally by TEU capacity; surpassed Maersk in fleet size in 2022 |
+| **Market Position** | Largest container carrier globally by TEU capacity (surpassed Maersk in January 2022) |
 | **Headquarters** | Geneva, Switzerland |
 | **Website** | [https://www.msc.com](https://www.msc.com) |
 
@@ -50,7 +50,7 @@
 | **DCSA APIs implemented** | TNT (Track & Trace), CS (Commercial Schedules). Booking (BKG) was listed as "in development — planned for release by end of 2025" as of Oct 2025 page capture. |
 | **DCSA TNT version** | **v2.2.0** (confirmed on MSC's Direct Integrations page: "DCSA T&T v2.2") |
 | **DCSA Booking version** | **v2.0** — listed as "DCSA Booking 2.0 - In development - planned for release by end of 2025" (status as of Feb 2026 unknown — may now be live) |
-| **DCSA Schedules version** | Listed as "DCSA Commercial" on MSC's Direct Integrations page. Specific version not stated; likely v1.x based on DCSA standard timeline. |
+| **DCSA Schedules version** | **v1.0** — confirmed on MSC Direct Integrations page as "DCSA Commercial Schedules 1.0" |
 | **Known DCSA deviations** | None documented. MSC states their solutions are "designed to be compliant with industry standards." Per their FAQ, MSC uses SMDG terminal codes and BIC depot codes which align with DCSA recommendations. Internal codes may also be used — MSC states "our specialists will provide you with all the needed information during the onboarding process." |
 
 ### Other Standards
@@ -106,11 +106,11 @@ MSC does **not** offer self-service API registration. To get production API acce
 
 | # | Canonical Field | Available? | Carrier Endpoint | Carrier Field/Event Code | DCSA Mapping | Notes |
 |---|----------------|-----------|-----------------|-------------------------|-------------|-------|
-| 1.1 | Vessel & Port Schedules | ✅ | DCSA Commercial Schedules API | vessel-schedules, port-schedules | DCSA CS v1.x | Listed on MSC Direct Integrations page as "Commercial Vessel Schedules — DCSA Commercial" |
-| 1.2 | Point-to-Point Route Options | ✅ | DCSA Commercial Schedules API | point-to-point-routes | DCSA CS v1.x | Also available via EDI: IFTSAI (EDIFACT), 323 (X12) |
+| 1.1 | Vessel & Port Schedules | ✅ | DCSA Commercial Schedules API | vessel-schedules, port-schedules | DCSA CS v1.0 | Listed on MSC Direct Integrations page as "Commercial Vessel Schedules — DCSA Commercial" |
+| 1.2 | Point-to-Point Route Options | ✅ | DCSA Commercial Schedules API | point-to-point-routes | DCSA CS v1.0 | Also available via EDI: IFTSAI (EDIFACT), 323 (X12) |
 | 1.3 | Booking Lifecycle | ⚠️ | DCSA Booking API (in development) | bookings | DCSA BKG v2.0 | Listed as "DCSA Booking 2.0 - In development - planned for release by end of 2025." Status as of Feb 2026 is unknown — may now be live. Available via EDI: IFTMBF/IFTMBC (EDIFACT), 300/301 (X12). |
 | 1.4 | Shipping Instructions | ⚠️ | DCSA BL/eDoc API (in development) | shipping-instructions | DCSA BL v3.0 | Listed as "DCSA BL 3.0 - In development - planned for release by end of 2025." Available via EDI: IFTMIN (EDIFACT). SI status tracked via DCSA ShipmentEvents in TNT. |
-| 1.5 | Rates | ❌ | N/A | N/A | Not part of DCSA | MSC offers "Instant Quote" via myMSC platform (web only). No public rate API found. |
+| 1.5 | Rates | ⚠️ | Rate Integration API v1 | `dpo-rateintegration-api-v1` | Not part of DCSA | MSC has a Rate Integration API v1 on the developer portal and listed "Contract Rates & Spot Rates — MSC Contract Rates (pilot)" on the Direct Integrations page (Oct 2025). Details require onboarding. Instant Quotes also available via myMSC web portal. |
 
 ### Document & Cargo Cutoffs (Section 2)
 
@@ -159,16 +159,16 @@ MSC does **not** offer self-service API registration. To get production API acce
 
 ### Coverage Summary
 
-| Category | Fields Available | Fields Unavailable | Fields Unknown | Coverage % |
-|----------|-----------------|-------------------|----------------|-----------|
-| API Domains (1.x) | 2/5 | 1/5 | 2/5 | 40% (80% with EDI) |
+| Category | Fields Available | Fields Unavailable | Fields Partial/Unknown | Coverage % |
+|----------|-----------------|-------------------|----------------------|-----------|
+| API Domains (1.x) | 2/5 | 0/5 | 3/5 | 40% (100% with EDI/partial) |
 | Cutoffs (2.x) | 6/6 | 0/6 | 0/6 | 100% |
 | Container Milestones (3.x) | 9/9 | 0/9 | 0/9 | 100% |
 | Transport Events (4.x) | 4/4 | 0/4 | 0/4 | 100% |
 | Change Detection (5.x) | 6/6 | 0/6 | 0/6 | 100% |
-| **Total** | **27/30** | **1/30** | **2/30** | **90%** |
+| **Total** | **27/30** | **0/30** | **3/30** | **90%** |
 
-> **Note on API Domains**: The 2 "unknown" fields (1.3 Booking, 1.4 Shipping Instructions) were listed as "in development — planned for end of 2025" on MSC's page as of Oct 2025. They may now be live (Feb 2026). Both are available via EDI regardless. The 1 "unavailable" field (1.5 Rates) is not part of any DCSA standard and MSC offers quotes only via their web portal.
+> **Note on API Domains**: The 2 "partial/unknown" fields (1.3 Booking, 1.4 Shipping Instructions) were listed as "in development — planned for end of 2025" on MSC's page as of Oct 2025. They may now be live (Feb 2026). Both are available via EDI regardless. Field 1.5 (Rates) was updated from ❌ to ⚠️ after discovering a Rate Integration API v1 (`dpo-rateintegration-api-v1`) in the developer portal API catalogue and "Contract Rates & Spot Rates (pilot)" on the Direct Integrations page. No API domain is fully unavailable — all 5 have at least partial or EDI coverage.
 
 ---
 
@@ -211,6 +211,20 @@ MSC does **not** offer self-service API registration. To get production API acce
 | Endpoint | Method | Purpose | Key Params | Notes |
 |----------|--------|---------|-----------|-------|
 | iReefer Ultimate API | ❓ | Smart container telemetry — real-time location, temperature, humidity | Container reference | Added Aug 2025. For refrigerated containers. "Contact local MSC representatives" for access. |
+
+
+### Additional APIs (Developer Portal Catalogue)
+
+> **Note**: The following APIs were identified in the MSC developer portal API catalogue but were not documented in the original inventory. Details beyond the API ID and inferred purpose require onboarding access. Discovered during review audit (Feb 2026).
+
+| API ID | Name | Inferred Purpose | Status | Notes |
+|--------|------|-----------------|--------|-------|
+| `dpo-rateintegration-api-v1` | Rate Integration API v1 | Contract rates and spot rates | Pilot/Partial | Listed in developer portal API catalogue. Direct Integrations page (Oct 2025) showed "Contract Rates & Spot Rates — MSC Contract Rates (pilot)". Details require onboarding. |
+| `DPO-MSCReporting-API-V1` | MSC Reporting API v1 | Reporting (unknown specifics) | Unknown | Listed in developer portal API catalogue. No public documentation found on purpose or endpoints. Requires onboarding to investigate. |
+| `dpo-referential-api-v1` | Referential API v1 | Reference/master data (inferred) | Unknown | Listed in developer portal API catalogue. Likely provides reference data (ports, terminals, vessel codes, etc.). Requires onboarding to confirm. |
+| `dpo-mscroutingsailings-api-v1` | MSC Routing/Sailings API v1 | Routing and sailing schedules | Unknown | Listed in developer portal API catalogue as a distinct API from the DCSA Commercial Schedules API. May be an MSC-specific (non-DCSA) routing endpoint. Relationship to Commercial Schedules API unclear. Requires onboarding to investigate. |
+
+> **Developer portal lists 6 APIs total**: DPO-DCSATrackAndTrace-API-V2, DPO-Commercial-Schedules-API-V1, plus the 4 above. Only TNT and Commercial Schedules were fully documented in the original inventory.
 
 ### Lookup Methods Summary
 
@@ -283,7 +297,7 @@ MSC does **not** offer self-service API registration. To get production API acce
 
 | Aggregator | Carrier Available? | Notes |
 |-----------|-------------------|-------|
-| **project44** | Yes (likely) | MSC is the 2nd largest carrier globally; project44 covers all major carriers. Not explicitly confirmed from MSC's pages but near-certain given market position. |
+| **project44** | Yes (likely) | MSC is the largest carrier globally; project44 covers all major carriers. Not explicitly confirmed from MSC's pages but near-certain given market position. |
 | **FourKites** | Yes (likely) | Same reasoning as project44 — FourKites covers major ocean carriers. |
 | **Vizion** | Yes (likely) | Vizion states they "standardize messages across all carriers" and covers major ocean lines. |
 | **INTTRA / E2open** | ✅ Yes | **Confirmed** on MSC Direct Integrations page as a connection partner. |
@@ -418,7 +432,7 @@ The adapter's auth module should be designed to accept configurable credentials 
 | Digital Solutions Page | [https://www.msc.com/en/solutions/digital-solutions](https://www.msc.com/en/solutions/digital-solutions) |
 | Data Protection Notice | [https://developerportal.msc.com/content/Data_Protection_Notice_Direct_Integration.pdf](https://developerportal.msc.com/content/Data_Protection_Notice_Direct_Integration.pdf) |
 | DCSA About / Members | [https://dcsa.org/about-us](https://dcsa.org/about-us) |
-| DCSA TNT v2.2 OpenAPI Spec | [https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0](https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0) |
+| DCSA TNT v2.2 OpenAPI Spec | [https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0](https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0) ⚠️ May redirect/timeout; check [DCSA GitHub](https://github.com/dcsaorg/DCSA-OpenAPI/tree/master/tnt) for current spec |
 | DCSA GitHub | [https://github.com/dcsaorg](https://github.com/dcsaorg) |
 | myMSC Platform | [https://mymsc.com](https://mymsc.com) |
 | Web Tracking | [https://www.msc.com/en/track-a-shipment](https://www.msc.com/en/track-a-shipment) |

@@ -15,7 +15,7 @@
 | **Carrier Name** | Hapag-Lloyd AG |
 | **SCAC Code** | HLCU |
 | **Parent Company** | Hapag-Lloyd AG (independent, publicly traded on Frankfurt Stock Exchange) |
-| **Alliance** | THE Alliance (with ONE, HMM, Yang Ming) |
+| **Alliance** | Gemini Cooperation (with Maersk) — launched February 2025; Hapag-Lloyd left THE Alliance in January 2025 |
 | **Primary Services** | Container shipping |
 | **Market Position** | 5th largest container shipping line globally |
 | **Headquarters** | Hamburg, Germany |
@@ -32,10 +32,10 @@
 | **API documentation URL(s)** | Embedded in developer portal (Vue.js SPA, requires login for full docs) |
 | **Documentation quality** | Good — DCSA-aligned OpenAPI specs, FAQs, tutorials with example requests; some APIs lack path detail in public listing |
 | **OpenAPI/Swagger spec available?** | Yes — full TNT v2.2.4 spec available via portal's public `/v1/apis` endpoint; Rate Sheet spec on [GitHub](https://github.com/Hapag-Lloyd/customer-api-definitions) |
-| **Sandbox/test environment?** | Yes — mock server at `https://mock.api-portal.hlag.com/v2/events` ([TNT API docs](https://api-portal.hlag.com)) |
+| **Sandbox/test environment?** | Yes — mock server at `https://mock.api-portal.hlag.com/v2/events` ([TNT API docs](https://api-portal.hlag.com)). **⚠️ Caveat**: Mock server returns data in an older v1.x-style event format (flat `eventTypeCode` instead of separate `equipmentEventTypeCode`/`transportEventTypeCode`; simple `transportCallID` instead of embedded `transportCall` objects). Do not rely on mock response structure for production code — see [Gotchas](#known-issues--gotchas) |
 | **Developer registration** | Free self-service registration at [api-portal.hlag.com](https://api-portal.hlag.com) |
 | **Developer support channels** | Contact form via API portal; general: [api-portal.hlag.com](https://api-portal.hlag.com) |
-| **Community/third-party libraries** | Python: [`hapag-lloyd-sdk`](https://pypi.org/project/hapag-lloyd-sdk/) v0.2.1 (PyPI); Ruby: [`hapag-lloyd_client`](https://github.com/Cellpap/hapag-lloyd_client) (GitHub, auto-generated from OpenAPI); Java: official Maven artifacts `com.hlag.api:openapi-specs` from [GitHub](https://github.com/Hapag-Lloyd/customer-api-definitions) |
+| **Community/third-party libraries** | Python: [`hapag-lloyd-sdk`](https://pypi.org/project/hapag-lloyd-sdk/) v0.2.1 (PyPI; source repo [`gedankenfabrik/hapag_lloyd_sdk`](https://github.com/gedankenfabrik/hapag_lloyd_sdk) on GitHub is unavailable — returns 404, deleted or private as of Feb 2026); Ruby: [`hapag-lloyd_client`](https://github.com/Cellpap/hapag-lloyd_client) (GitHub, auto-generated from OpenAPI); Java/GitHub: [customer-api-definitions](https://github.com/Hapag-Lloyd/customer-api-definitions) — Rate Sheet notification callback spec only (defines the endpoint customers must implement to receive rate sheet push notifications from HL; not a general API client library; `com.hlag.api:openapi-specs` is not published on Maven Central as of Feb 2026) |
 | **API changelog / release notes** | TNT changelog in API description: v2.2.2 May 2025 (Pilot Test); no separate changelog URL found |
 
 ---
@@ -186,7 +186,7 @@ Registration at [api-portal.hlag.com](https://api-portal.hlag.com) is free and s
 **Mock endpoint for testing:**
 | Endpoint | Method | Notes |
 |----------|--------|-------|
-| `GET https://mock.api-portal.hlag.com/v2/events/` | GET | Sandbox/mock server for development |
+| `GET https://mock.api-portal.hlag.com/v2/events/` | GET | Sandbox/mock server for development. **⚠️ Returns v1.x-style event format** — see [Gotchas](#known-issues--gotchas) |
 
 ### Schedules
 
@@ -309,6 +309,7 @@ Registration at [api-portal.hlag.com](https://api-portal.hlag.com) is free and s
 - **SORT**: Supports field-based sorting with `:ASC`/`:DESC` suffix (e.g., `carrierBookingReference:DESC`).
 - **NO `isTransshipmentMove` FIELD**: Unlike some DCSA implementations, transshipment moves are not explicitly flagged. Must be inferred from location matching against the transport plan.
 - **IBM API CONNECT**: The API gateway is IBM API Connect (indicated by `X-IBM-Client-*` headers). This is relevant for error handling — IBM gateway errors may differ from application errors.
+- **⚠️ MOCK SERVER DATA FORMAT MISMATCH**: The mock endpoint at `mock.api-portal.hlag.com` returns events in an older v1.x-style format that differs significantly from the v2.2.4 OpenAPI spec: uses flat `eventTypeCode` (e.g., `"eventTypeCode":"GTOT"`) instead of separate `equipmentEventTypeCode`/`transportEventTypeCode` fields; uses `shipmentINformationTypeCode` (note casing anomaly) instead of `shipmentEventTypeCode`; returns simple `transportCallID: 6` instead of embedded `transportCall` objects. Developers building against the mock will produce code that does not work with the real v2.2.4 API. Use the mock only for connectivity/auth testing, not for response-structure development.
 
 ### Recently Deprecated or Changed
 
@@ -424,7 +425,7 @@ The main mapping challenges are:
 | Official GitHub (customer-api-definitions) | [https://github.com/Hapag-Lloyd/customer-api-definitions](https://github.com/Hapag-Lloyd/customer-api-definitions) |
 | Rate Sheet Notification OpenAPI Spec | [https://github.com/Hapag-Lloyd/customer-api-definitions/blob/main/src/main/openapi/ratesheet/v1/subscription_callback.yaml](https://github.com/Hapag-Lloyd/customer-api-definitions/blob/main/src/main/openapi/ratesheet/v1/subscription_callback.yaml) |
 | Community: Python SDK (PyPI) | [https://pypi.org/project/hapag-lloyd-sdk/](https://pypi.org/project/hapag-lloyd-sdk/) |
-| Community: Python SDK (GitHub) | [https://github.com/gedankenfabrik/hapag_lloyd_sdk](https://github.com/gedankenfabrik/hapag_lloyd_sdk) |
+| Community: Python SDK (GitHub) | ~~[https://github.com/gedankenfabrik/hapag_lloyd_sdk](https://github.com/gedankenfabrik/hapag_lloyd_sdk)~~ — **⚠️ Returns 404** (deleted or private as of Feb 2026). PyPI package [`hapag-lloyd-sdk`](https://pypi.org/project/hapag-lloyd-sdk/) v0.2.1 still available. |
 | Community: Ruby Client (GitHub) | [https://github.com/Cellpap/hapag-lloyd_client](https://github.com/Cellpap/hapag-lloyd_client) |
 | DCSA About (confirms founding member) | [https://dcsa.org/about-us/](https://dcsa.org/about-us/) |
 | DCSA TNT v2 Information Model | [https://dcsa.org/wp-content/uploads/2021/10/202108_DCSA_P1_Information-Model-v3.3_TNT22_Final.pdf](https://dcsa.org/wp-content/uploads/2021/10/202108_DCSA_P1_Information-Model-v3.3_TNT22_Final.pdf) |
