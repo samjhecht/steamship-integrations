@@ -19,7 +19,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Mediterranean Shipping Company (MSC) | MSCU | MSC Group / 2M | Tracking + Schedules | Yes (TNT v2.2, CS) | Partner Required (onboarding) | [developerportal.msc.com](https://developerportal.msc.com/) | Complete | Not Started |
 | Hapag-Lloyd | HLCU | Hapag-Lloyd / THE Alliance | Full Suite (BETA) | Yes — TNT v2.2, CS v1.0, OVS v3.0 | API Key (IBM API Connect) | [api-portal.hlag.com](https://api-portal.hlag.com) | Complete | Not Started |
 | Grimaldi Lines | GRIM | Grimaldi Group / Independent | None | No | N/A | None — no developer portal | Complete | Not Started |
-| Evergreen Line | EGLV | Evergreen Group / Ocean Alliance | | | | | Not Started | Not Started |
+| Evergreen Line | EGLV | Evergreen Group / Ocean Alliance | Full Suite | Yes (TNT v2.2, BKG v2.0.0, SI v3.0.0, CS v1.0.0) | JWT (Client ID/Secret) | [ShipmentLink API Portal](https://www.shipmentlink.com/_ec/APIPORTAL_Home) | Complete | Not Started |
 
 ## All Carriers
 
