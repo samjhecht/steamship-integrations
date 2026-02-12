@@ -282,7 +282,7 @@ interface CarrierCapabilities {
 **Goal:** Produce a complete, verified data availability inventory for each priority carrier before writing any code.
 
 **Deliverables:**
-1. Customized `docs/skills/inventorying-carrier-apis/` skill — adapted from the generic provider data inventory skill to freight/carrier context (replace GDPR/OAuth/consumer framing with carrier API/EDI/login-wall framing)
+1. Customized `.wrangler/skills/inventorying-carrier-apis/` skill — adapted from the generic provider data inventory skill to freight/carrier context (replace GDPR/OAuth/consumer framing with carrier API/EDI/login-wall framing)
 2. Completed inventories in `docs/carriers/<carrier>/data-availability-inventory.md` for all 5 priority carriers
 3. Updated `docs/steamship-lines.md` — at minimum the 5 priority carriers populated with API docs URLs and status
 
@@ -438,7 +438,7 @@ interface CarrierCapabilities {
 
 - `docs/required-data-fields.md` — Canonical field reference with DCSA/Maersk mappings
 - `docs/steamship-lines.md` — Carrier index
-- `docs/skills/inventorying-provider-data/` — Base research skill (to be customized)
+- `.wrangler/skills/inventorying-carrier-apis/` — Customized carrier API research skill
 - `.wrangler/memos/context-on-existing-state-for-rate-requests.md` — Broader SSL/Exportfile business context
 
 ### External Resources
