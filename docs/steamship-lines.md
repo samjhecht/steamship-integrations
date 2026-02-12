@@ -15,10 +15,10 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 
 | Carrier Name | SCAC | Parent / Alliance | API Status | DCSA | Auth Type | Developer Portal | Audit | Adapter |
 |---|---|---|---|---|---|---|---|---|
-| Maersk Line | MAEU | Maersk / 2M (now Gemini w/ Hapag-Lloyd) | Full Suite | Yes (TNT v3, BKG v2, CS v1) | OAuth2 + API Key | [developer.maersk.com](https://developer.maersk.com) | Complete | Not Started |
-| Mediterranean Shipping Company (MSC) | MSCU | MSC Group / 2M | Tracking + Schedules | Yes (TNT v2.2, CS) | Partner Required (onboarding) | [developerportal.msc.com](https://developerportal.msc.com/) | Complete | Not Started |
-| Hapag-Lloyd | HLCU | Hapag-Lloyd / THE Alliance | Full Suite (BETA) | Yes — TNT v2.2, CS v1.0, OVS v3.0 | API Key (IBM API Connect) | [api-portal.hlag.com](https://api-portal.hlag.com) | Complete | Not Started |
-| Grimaldi Lines | GRIM | Grimaldi Group / Independent | None | No | N/A | None — no developer portal | Complete | Not Started |
+| Maersk Line | MAEU | Maersk / Gemini Cooperation (w/ Hapag-Lloyd; 2M with MSC ended Jan 2025) | Full Suite | Yes (TNT v3, BKG v2, CS v1) | OAuth2 + API Key | [developer.maersk.com](https://developer.maersk.com) | Complete | Not Started |
+| Mediterranean Shipping Company (MSC) | MSCU | MSC Group / Independent (2M with Maersk ended Jan 2025) | Tracking + Schedules | Yes (TNT v2.2, CS) | Partner Required (onboarding) | [developerportal.msc.com](https://developerportal.msc.com/) | Complete | Not Started |
+| Hapag-Lloyd | HLCU | Hapag-Lloyd / Gemini Cooperation (with Maersk) | Full Suite (BETA) | Yes — TNT v2.2, CS v1.0, OVS v3.0 | API Key (IBM API Connect) | [api-portal.hlag.com](https://api-portal.hlag.com) | Complete | Not Started |
+| Grimaldi Lines | GRIM | Grimaldi Group / Independent | Tracking + Schedules + Rates | No | Bearer Token (UserID+UserSecret) | [GNET WebAPI](https://www.gnet.grimaldi-eservice.com/services/Help) | Complete | Not Started |
 | Evergreen Line | EGLV | Evergreen Group / Ocean Alliance | Full Suite | Yes (TNT v2.2, BKG v2.0.0, SI v3.0.0, CS v1.0.0) | JWT (Client ID/Secret) | [ShipmentLink API Portal](https://www.shipmentlink.com/_ec/APIPORTAL_Home) | Complete | Not Started |
 
 ## All Carriers
