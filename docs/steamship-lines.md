@@ -25,7 +25,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 
 | Carrier Name | SCAC | Parent / Alliance | API Status | DCSA | Auth Type | Developer Portal | Audit | Adapter |
 |---|---|---|---|---|---|---|---|---|
-| Aliança | | Maersk | | | | | Not Started | Not Started |
+| Aliança | ANRM | Maersk (via Hamburg Sud) / None (cabotage) | None (Portal Only) | No | N/A | N/A | Complete | Not Started |
 | American President Lines (APL) | APLU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | ANL | ANNU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Atlantic Container Line (ACL) | ACLU | Grimaldi Group / Independent | None (EDI + Portal only) | No | N/A (no API; EDI via Trading Partner Agreement) | N/A | Complete | Not Started |
@@ -33,7 +33,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
 | Crowley | CMCU | Independent | None (Portal + EDI only) | No | N/A (no API; EDI via INTTRA) | N/A | Complete | Not Started |
-| CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
+| CSAV | CHIW | Hapag-Lloyd (merged 2014; CSAV is ~30% equity holder) | None (uses Hapag-Lloyd) | No (via HL: Yes, TNT v2.2.4 BETA) | N/A (via HL: API Key) | N/A (use [api-portal.hlag.com](https://api-portal.hlag.com)) | Complete | Not Started |
 | CU Lines | CULU | Independent | Portal Only | No | N/A (no API; eService portal only) | [eService](https://eservice.culines.com/) | Complete | Not Started |
 | Dole | | Independent | | | | | Not Started | Not Started |
 | Eimskip | EIMU | Independent (Iceland-based) | Tracking + Schedules | No | Unknown (undocumented) | [api.eimskip.com/Help](http://api.eimskip.com/Help) | Complete | Not Started |
@@ -41,7 +41,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | FESCO Transportation Group | | Independent | | | | | Not Started | Not Started |
 | G2 Ocean | | Independent | | | | | Not Started | Not Started |
 | Great White Fleet | UBCU | Chiquita Brands International / Independent | None (Portal Only) | No | N/A | N/A (no developer portal) | Complete | Not Started |
-| Hamburg Süd | SUDU | Maersk | | | | | Not Started | Not Started |
+| Hamburg Süd | SUDU | Maersk (subsidiary, acquired 2017; brand retired) | Full Suite (via Maersk) | Yes (TNT v2/v3, BKG v2, CS v1 — via Maersk) | OAuth2 + API Key (via Maersk) | [developer.maersk.com](https://developer.maersk.com) (no independent portal) | Complete | Not Started |
 | Hyundai Merchant Marine (HMM) | HDMU | HMM / THE Alliance | Tracking + Schedules | Yes -- DCSA founding member (TNT ~v2.2, BKG/BL piloted Nov 2025) | API Key (x-Gateway-APIKey) | [apiportal.hmm21.com](https://apiportal.hmm21.com/api) | Complete | Not Started |
 | Independent Container Line (ICL) | IILU | Independent | None (EDI + Portal only) | No | N/A (no API; EDI + aggregators) | N/A | Complete | Not Started |
 | Linea Peninsular | LPUS | Independent | None (Portal Only) | No | N/A (no API; customer portal only) | N/A | Complete | Not Started |
@@ -52,8 +52,8 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Orient Overseas Container Line (OOCL) | OOLU | COSCO Group / Ocean Alliance | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via CargoSmart) | N/A | Complete | Not Started |
 | Pasha Hawaii Transport Lines | | Independent | | | | | Not Started | Not Started |
 | PT. Andalan Pacific Samudra | | Independent | | | | | Not Started | Not Started |
-| Safmarine | SAFM | Maersk | | | | | Not Started | Not Started |
-| SeaLand | SEJJ | Maersk | | | | | Not Started | Not Started |
+| Safmarine (brand retired Dec 2020) | SAFM | Maersk (subsidiary, fully integrated) | Full Suite (via Maersk API) | Yes (TNT v3, BKG v2, CS v1 -- via Maersk) | OAuth2 + API Key (Maersk credentials) | [developer.maersk.com](https://developer.maersk.com) | Complete | Not Started |
+| SeaLand (brand retired Dec 2023) | SEJJ | Maersk (subsidiary, fully integrated) | Full Suite (via Maersk API) | Yes (TNT v3, BKG v2, CS v1 -- via Maersk) | OAuth2 + API Key (Maersk credentials) | [developer.maersk.com](https://developer.maersk.com) | Complete | Not Started |
 | SeaLead | | Independent | | | | | Not Started | Not Started |
 | Seaboard Marine | SMLU | Seaboard Corporation / Independent | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via AS2/SFTP) | N/A | Complete | Not Started |
 | Shipping Corporation of India | SCIU | Independent | | | | | Not Started | Not Started |
