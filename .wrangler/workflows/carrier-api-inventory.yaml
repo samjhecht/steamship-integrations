@@ -1,5 +1,5 @@
 name: carrier-api-inventory
-version: 1
+version: 2
 
 defaults:
   model: opus
@@ -7,7 +7,6 @@ defaults:
   settingSources: ["project"]
 
 safety:
-  maxLoopRetries: 2
   maxStepTimeoutMs: 600000
   failOnStepError: true
 
@@ -31,20 +30,10 @@ phases:
     output: review
 
   - name: fix
-    type: loop
+    agent: implementer
+    prompt: fix-inventory-gaps
+    input: review
     condition: review.hasGaps
-    maxRetries: 2
-    onExhausted: escalate
-    steps:
-      - name: fix-gaps
-        agent: implementer
-        prompt: fix-inventory-gaps
-        input: review.gaps
-
-      - name: re-verify
-        agent: inventory-reviewer
-        prompt: verify-inventory
-        output: review
 
   - name: publish
     agent: implementer

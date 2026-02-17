@@ -11,7 +11,7 @@ Research and document all API capabilities and tracking data available from a si
 
 **Workflow definition**: `.wrangler/workflows/carrier-api-inventory.yaml`
 
-**Output**: A verified `api-inventory.md` in `docs/carriers/{carrier}/`, plus updates to `docs/steamship-lines.md` and `docs/carrier-field-coverage-matrix.md`.
+**Output**: A verified `api-inventory.md` in `docs/carriers/{carrier}/`, a `coverage-row.md` with this carrier's matrix row, plus updates to `docs/steamship-lines.md`. The cross-carrier coverage matrix (`docs/carrier-field-coverage-matrix.md`) is built separately from all carriers' `coverage-row.md` files to avoid merge conflicts when running inventories in parallel.
 
 ## Before You Start
 
@@ -34,12 +34,13 @@ Phase 3: VERIFY (inventory-reviewer agent)
     Review inventory against quality checklist. Fresh agent with no "I just wrote this" bias.
     Output: pass/fail with specific gaps
     |
-Phase 4: FIX (loop, max 2 iterations)
-    If verify found gaps: implementer fixes them, reviewer re-checks.
-    Only runs if Phase 3 found actionable issues.
+Phase 4: FIX (conditional, single pass)
+    If verify found gaps: implementer fixes them.
+    Skipped entirely if Phase 3 found no issues.
     |
 Phase 5: PUBLISH (implementer agent)
-    Update docs/steamship-lines.md and docs/carrier-field-coverage-matrix.md.
+    Update docs/steamship-lines.md with carrier row.
+    Write docs/carriers/{carrier}/coverage-row.md with this carrier's matrix data.
     Clean up research notes if all useful info was captured in inventory.
 ```
 
@@ -86,15 +87,12 @@ Evaluate the response:
 - If `hasGaps == false`: proceed to Phase 5
 - If `hasGaps == true`: proceed to Phase 4
 
-### Phase 4: Fix (conditional loop)
+### Phase 4: Fix (conditional, single pass)
 
-Only runs if Phase 3 found gaps. Maximum 2 iterations.
+Only runs if Phase 3 found gaps.
 
-Each iteration:
 1. Dispatch implementer subagent with gap list from verify step
-2. Dispatch reviewer subagent to re-verify
-
-If gaps remain after 2 iterations: escalate to user with the remaining gap list.
+2. Subagent fixes what it can, marks unresolvable gaps as "Unknown" with Open Questions
 
 ### Phase 5: Publish
 
@@ -113,7 +111,7 @@ Some carriers (particularly smaller or regional ones) may have no public API. Th
 - **Phase 1 (Research)** will discover the absence and document alternatives (portal, EDI, aggregators)
 - **Phase 2 (Inventory)** will delete inapplicable endpoint sections and focus on what IS available
 - **Phase 3 (Verify)** will check that the absence was properly documented, not just overlooked
-- **Phase 5 (Publish)** will update cross-carrier docs with appropriate "None" / "Portal Only" status
+- **Phase 5 (Publish)** will write a coverage-row.md and update steamship-lines.md with appropriate "None" / "Portal Only" status
 
 ## Common Carrier Patterns
 
@@ -145,7 +143,7 @@ Some carriers (particularly smaller or regional ones) may have no public API. Th
 - [ ] SDK adapter recommendations provided
 - [ ] Open questions listed
 - [ ] `docs/steamship-lines.md` updated
-- [ ] `docs/carrier-field-coverage-matrix.md` updated with new row
+- [ ] `docs/carriers/{carrier}/coverage-row.md` written with matrix row data
 
 ## Crash Recovery
 
@@ -153,7 +151,7 @@ If interrupted, run `session_get()` (no sessionId) to find the most recent incom
 
 - **Interrupted during Phase 1**: Re-run research (web research is not idempotent -- start fresh)
 - **Interrupted during Phase 2**: Check if `research-notes.md` exists. If yes, re-run Phase 2 only
-- **Interrupted during Phase 3-4**: Check if `api-inventory.md` exists. If yes, re-run verify
+- **Interrupted during Phase 3 or 4**: Check if `api-inventory.md` exists. If yes, re-run verify
 - **Interrupted during Phase 5**: Check if inventory is verified. If yes, re-run publish only
 
 ## Related Skills
