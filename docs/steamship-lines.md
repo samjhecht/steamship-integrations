@@ -30,7 +30,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | ANL | | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
 | Atlantic Container Line (ACL) | ACLU | Grimaldi Group | | | | | Not Started | Not Started |
 | Bahri | | Independent | | | | | Not Started | Not Started |
-| CMA CGM | CMDU | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
+| CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | | | | | Not Started | Not Started |
 | Crowley | CMCU | Independent | | | | | Not Started | Not Started |
 | CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
