@@ -98,6 +98,17 @@ Rules:
 - Deprecation claims must be precise with links to the notice
 - Version claims must specify which version (don't say "supports DCSA TNT" without the version number)
 
+## If the Carrier Appears to Have No API
+
+Search thoroughly before concluding -- some carriers hide their APIs behind partner portals or alliance infrastructure. If you genuinely find no public API:
+
+- **Confirm the absence** -- check partner portals, alliance shared infrastructure, and aggregator platforms
+- **Document the web portal tracking** -- URL, what data it shows, whether it requires login
+- **Check third-party aggregators** -- the carrier may be accessible through project44, FourKites, Vizion, INTTRA, or CargoSmart even without their own API
+- **Check for EDI** -- some carriers support EDI messaging (IFTMIN, COPARN, BAPLIE, IFTSTA) even without REST/SOAP APIs
+- **Assess scraping feasibility** -- is the portal scrapable? Does it use anti-bot measures? What are the ToS?
+- **Document the gap clearly** -- so the SDK team can make an informed decision about whether and how to support this carrier
+
 ## Output
 
 Write your findings to `docs/carriers/{{ carrier.slug }}/research-notes.md` as a structured document with clearly labeled sections for each research area above. Include all source URLs inline. This document is the intermediate artifact that the next workflow step will use to fill the inventory template.

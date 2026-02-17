@@ -16,6 +16,20 @@ Read these files:
 
 Copy the template to `docs/carriers/{{ carrier.slug }}/api-inventory.md` and fill every section using the research notes as your primary source.
 
+### Documentation Extraction Checklist
+
+As you fill each template section, ensure these dimensions are explicitly addressed using the research notes:
+
+1. **Document response shapes** -- for key tracking endpoints, document the response structure. Note which fields are always present vs. optional/conditional
+2. **Document lookup methods** -- which shipment identifiers does each endpoint accept? (B/L number, booking reference, container number, carrier booking number). Are there different endpoints for different lookup types?
+3. **Document pagination** -- how does the API paginate results? Cursor-based, offset-based, or no pagination? What are the page size limits?
+4. **Document rate limits** -- what are the documented rate limits? Per-endpoint or global? What happens when you hit them (429 response? retry-after header?)? Are there different tiers?
+5. **Document webhook/push support** -- does the carrier support event subscriptions? What events can be subscribed to? What's the callback format? Is it reliable?
+6. **Document data freshness** -- how quickly do events appear in the API after they occur in the physical world? Is this documented, or inferred from user reports?
+7. **Check for sandbox/test environment** -- can we develop and test against a non-production environment? What test data is available?
+
+If the research notes don't cover one of these dimensions, mark it as "Unknown" in the inventory and add it to the Open Questions section.
+
 ### Key Rules
 
 - **Every field from `docs/required-data-fields.md` must have a row in the coverage matrix** -- use "Unknown" for genuinely unknown, "Not available" for confirmed unavailable, never leave blank

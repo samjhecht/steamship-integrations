@@ -22,17 +22,22 @@ Verify each of these. For each item, report pass/fail with specifics:
 - [ ] Authentication requirements fully documented -- someone at SSL reading this knows exactly what to do to get API access
 - [ ] Lookup methods documented -- which identifiers work with which endpoints
 - [ ] DCSA compliance assessed -- member status, which APIs, which version, known deviations
-- [ ] Non-API access methods checked -- web portal, EDI, third-party aggregators
+- [ ] Rate limits documented with source tier -- per-endpoint vs global, 429 behavior, retry-after headers, different tiers
+- [ ] Non-API access methods checked -- web portal, EDI, third-party aggregators (project44, FourKites, Vizion, INTTRA, CargoSmart)
 - [ ] Community resources checked -- GitHub libraries, npm/PyPI packages, forum discussions
-- [ ] Webhook/push support assessed
-- [ ] Sandbox/test environment assessed
-- [ ] Data freshness assessed
+- [ ] Webhook/push support assessed -- available? what events? callback format? reliability?
+- [ ] Sandbox/test environment assessed -- available? how to access? what test data?
+- [ ] Data freshness assessed -- how quickly do events appear in the API?
 - [ ] SDK adapter recommendations provided -- feasibility, architecture, lookup method, polling strategy, effort estimate
 - [ ] Open questions listed
 
 ### Accuracy
 - [ ] All links verified as real URLs (not fabricated patterns)
-- [ ] All quantitative claims have sourcing tiers (Official/Reported/Estimated/Unknown)
+- [ ] All quantitative claims have sourcing tiers using correct format:
+  - **Official**: stated as fact with linkable URL -- e.g. "Rate limit: 100 req/min ([docs](url))"
+  - **Reported**: "Reported as ~X" with source -- e.g. "Events appear within ~15 min (reported by [user](url))"
+  - **Estimated**: "Estimated ~X (unverified)" -- e.g. "Rate limit: estimated ~30 req/min (unverified)"
+  - **Unknown**: marked as such -- no invented numbers
 - [ ] No unsourced attributions (never "the carrier states X" without a linkable URL)
 - [ ] Methodology stated -- status field reflects documentation-only vs. live testing
 - [ ] Coverage summary math adds up (available + unavailable + unknown = total per category)

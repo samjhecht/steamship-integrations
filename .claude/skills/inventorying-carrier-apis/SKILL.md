@@ -9,7 +9,7 @@ description: Workflow-orchestrated research and documentation of ocean carrier A
 
 Research and document all API capabilities and tracking data available from a single ocean carrier. This is a **workflow skill** -- the workflow engine handles phase sequencing, agent dispatch, and checkpointing automatically.
 
-**Workflow definition**: `.wrangler/workflows/carrier-api-inventory.yaml`
+**Workflow definition**: `.wrangler/orchestration/workflows/carrier-api-inventory.yaml`
 
 ## How to Run
 
@@ -17,7 +17,7 @@ Start the workflow with `session_start`:
 
 ```
 session_start(
-  specFile: ".wrangler/workflows/carrier-api-inventory.yaml",
+  specFile: ".wrangler/orchestration/workflows/carrier-api-inventory.yaml",
   workflow: "carrier-api-inventory"
 )
 ```
