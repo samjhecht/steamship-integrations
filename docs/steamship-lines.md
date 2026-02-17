@@ -26,8 +26,8 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Carrier Name | SCAC | Parent / Alliance | API Status | DCSA | Auth Type | Developer Portal | Audit | Adapter |
 |---|---|---|---|---|---|---|---|---|
 | Aliança | | Maersk | | | | | Not Started | Not Started |
-| American President Lines (APL) | APLU | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
-| ANL | | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
+| American President Lines (APL) | APLU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
+| ANL | ANNU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Atlantic Container Line (ACL) | ACLU | Grimaldi Group | | | | | Not Started | Not Started |
 | Bahri | | Independent | | | | | Not Started | Not Started |
 | CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
