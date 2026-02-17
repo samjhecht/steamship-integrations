@@ -30,8 +30,8 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | ANL | | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
 | Atlantic Container Line (ACL) | ACLU | Grimaldi Group | | | | | Not Started | Not Started |
 | Bahri | | Independent | | | | | Not Started | Not Started |
-| CMA CGM | CMDU | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
-| Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | | | | | Not Started | Not Started |
+| CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
+| Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
 | Crowley | CMCU | Independent | | | | | Not Started | Not Started |
 | CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
 | CU Lines | | Independent | | | | | Not Started | Not Started |
@@ -42,14 +42,14 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | G2 Ocean | | Independent | | | | | Not Started | Not Started |
 | Great White Fleet | | Independent | | | | | Not Started | Not Started |
 | Hamburg Süd | SUDU | Maersk | | | | | Not Started | Not Started |
-| Hyundai Merchant Marine (HMM) | HDMU | HMM / THE Alliance | | | | | Not Started | Not Started |
+| Hyundai Merchant Marine (HMM) | HDMU | HMM / THE Alliance | Tracking + Schedules | Yes -- DCSA founding member (TNT ~v2.2, BKG/BL piloted Nov 2025) | API Key (x-Gateway-APIKey) | [apiportal.hmm21.com](https://apiportal.hmm21.com/api) | Complete | Not Started |
 | Independent Container Line (ICL) | | Independent | | | | | Not Started | Not Started |
 | Linea Peninsular | | Independent | | | | | Not Started | Not Started |
 | Marfret Compagnie Maritime | | Independent | | | | | Not Started | Not Started |
 | Maruba | | Independent | | | | | Not Started | Not Started |
 | Matson | MATS | Independent | | | | | Not Started | Not Started |
-| Ocean Network Express (ONE) | ONEY | ONE / THE Alliance | | | | | Not Started | Not Started |
-| Orient Overseas Container Line (OOCL) | OOLU | COSCO Group / Ocean Alliance | | | | | Not Started | Not Started |
+| Ocean Network Express (ONE) | ONEY | ONE / THE Alliance | Tracking (DCSA TNT confirmed; full suite unverified) | Yes — DCSA founding member (TNT confirmed; BKG, CS, eDoc unverified) | Unknown (portal requires registration) | [developers.one-line.com](https://developers.one-line.com) | Complete | Not Started |
+| Orient Overseas Container Line (OOCL) | OOLU | COSCO Group / Ocean Alliance | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via CargoSmart) | N/A | Complete | Not Started |
 | Pasha Hawaii Transport Lines | | Independent | | | | | Not Started | Not Started |
 | PT. Andalan Pacific Samudra | | Independent | | | | | Not Started | Not Started |
 | Safmarine | SAFM | Maersk | | | | | Not Started | Not Started |
@@ -68,4 +68,4 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Wan Hai | WHLC | Independent | | | | | Not Started | Not Started |
 | WECO Shipping | | Independent | | | | | Not Started | Not Started |
 | Yang Ming Line | YMLU | Yang Ming / THE Alliance | | | | | Not Started | Not Started |
-| ZIM Integrated Shipping Services | ZIMU | ZIM / Independent | | | | | Not Started | Not Started |
+| ZIM Integrated Shipping Services | ZIMU | ZIM / Independent (Hapag-Lloyd acquisition pending, late 2026) | Tracking (DCSA TNT adopted; full suite unverified) | Yes -- DCSA founding member (TNT adopted; version unconfirmed) | API Token (Azure API Management; specific mechanism requires portal access) | [api.zim.com](https://api.zim.com/) | Complete | Not Started |
