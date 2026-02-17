@@ -1,0 +1,52 @@
+name: carrier-api-inventory
+version: 1
+
+defaults:
+  model: opus
+  permissionMode: bypassPermissions
+  settingSources: ["project"]
+
+safety:
+  maxLoopRetries: 2
+  maxStepTimeoutMs: 600000
+  failOnStepError: true
+
+phases:
+  - name: research
+    agent: researcher
+    prompt: research-carrier
+    model: opus
+    output: research
+
+  - name: inventory
+    agent: implementer
+    prompt: fill-inventory
+    input: research
+    output: inventory
+
+  - name: verify
+    agent: inventory-reviewer
+    prompt: verify-inventory
+    input: inventory
+    output: review
+
+  - name: fix
+    type: loop
+    condition: review.hasGaps
+    maxRetries: 2
+    onExhausted: escalate
+    steps:
+      - name: fix-gaps
+        agent: implementer
+        prompt: fix-inventory-gaps
+        input: review.gaps
+
+      - name: re-verify
+        agent: inventory-reviewer
+        prompt: verify-inventory
+        output: review
+
+  - name: publish
+    agent: implementer
+    prompt: publish-inventory
+    input: inventory
