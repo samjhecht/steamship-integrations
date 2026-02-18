@@ -161,14 +161,14 @@ There is no API access to obtain. WECO Shipping does not provide any programmati
 
 ### Coverage Summary
 
-| Category | Fields Available | Fields Unavailable | Fields Unknown | Coverage % |
-|----------|-----------------|-------------------|----------------|-----------|
-| API Domains (1.x) | 0/5 | 5/5 | 0/5 | 0% |
-| Cutoffs (2.x) | 0/6 | 6/6 | 0/6 | 0% |
-| Container Milestones (3.x) | 0/9 | 9/9 | 0/9 | 0% |
-| Transport Events (4.x) | 0/4 | 4/4 | 0/4 | 0% |
-| Change Detection (5.x) | 0/6 | 6/6 | 0/6 | 0% |
-| **Total** | **0/30** | **30/30** | **0/30** | **0%** |
+| Category | Fields Available | Fields Partial | Fields Unavailable | Fields Unknown | Coverage % |
+|----------|-----------------|---------------|-------------------|----------------|-----------|
+| API Domains (1.x) | 0/5 | 0/5 | 5/5 | 0/5 | 0% |
+| Cutoffs (2.x) | 0/6 | 0/6 | 6/6 | 0/6 | 0% |
+| Container Milestones (3.x) | 0/9 | 0/9 | 9/9 | 0/9 | 0% |
+| Transport Events (4.x) | 0/4 | 0/4 | 4/4 | 0/4 | 0% |
+| Change Detection (5.x) | 0/6 | 0/6 | 6/6 | 0/6 | 0% |
+| **Total** | **0/30** | **0/30** | **30/30** | **0/30** | **0%** |
 
 > **Notes on Coverage:**
 > WECO Shipping has 0% field coverage because it is not a container shipping line. All 30 required data fields are designed for container shipping operations (container milestones, container cutoffs, container booking lifecycle). WECO operates dry bulk carriers and product tankers, which use fundamentally different operational workflows (voyage charterparties, laytime calculations, demurrage) that are outside the scope of the SSL SDK's canonical data model.

@@ -156,14 +156,14 @@ Trailer Bridge does not offer a public API or developer portal. The only program
 
 ### Coverage Summary
 
-| Category | Fields Available | Fields Partial | Fields Unavailable | Fields Unknown | Coverage % |
-|----------|-----------------|---------------|-------------------|----------------|-----------|
-| API Domains (1.x) | 0/5 | 0/5 | 5/5 | 0/5 | 0% |
-| Cutoffs (2.x) | 0/6 | 0/6 | 6/6 | 0/6 | 0% |
-| Container Milestones (3.x) | 0/9 | 6/9 | 3/9 | 0/9 | 0% (6 partial -- portal only) |
-| Transport Events (4.x) | 0/4 | 2/4 | 2/4 | 0/4 | 0% (2 partial -- portal only) |
-| Change Detection (5.x) | 0/6 | 0/6 | 6/6 | 0/6 | 0% |
-| **Total** | **0/30** | **8/30** | **22/30** | **0/30** | **0% confirmed (27% portal-only partial)** |
+| Category | Fields Available | Fields Unavailable | Fields Unknown | Coverage % |
+|----------|-----------------|-------------------|----------------|-----------|
+| API Domains (1.x) | 0/5 | 5/5 | 0/5 | 0% |
+| Cutoffs (2.x) | 0/6 | 6/6 | 0/6 | 0% |
+| Container Milestones (3.x) | 0/9 | 3/9 | 0/9 | 0% (6 partial -- portal only) |
+| Transport Events (4.x) | 0/4 | 2/4 | 0/4 | 0% (2 partial -- portal only) |
+| Change Detection (5.x) | 0/6 | 6/6 | 0/6 | 0% |
+| **Total** | **0/30** | **22/30** | **0/30** | **0% confirmed (27% portal-only partial)** |
 
 > **Notes on Coverage:**
 > - Trailer Bridge has no public API whatsoever. All "partial" ratings reflect data that may be visible on the QuickTrack web portal but is not accessible programmatically.
@@ -339,6 +339,12 @@ No authentication implementation needed -- there is no API. If integrating via S
 ### Mapping Complexity
 
 **N/A -- no data to map.** There is no API response to transform into the canonical data model. If data is obtained via ShipsGo or web scraping, the mapping complexity depends on the data source's response format rather than Trailer Bridge's own systems.
+
+---
+
+## Webhook / Push Support
+
+No webhook or push notification support available.
 
 ---
 

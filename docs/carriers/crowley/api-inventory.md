@@ -174,7 +174,7 @@ Web portal scraping of C Sight is technically possible (public, no login require
 | Category | Fields Available | Fields Unavailable | Fields Unknown | Coverage % |
 |----------|-----------------|-------------------|----------------|-----------|
 | API Domains (1.x) | 0/5 | 1/5 | 0/5 | 0% (4 partial via web/EDI/INTTRA) |
-| Cutoffs (2.x) | 0/6 | 0/6 | 6/6 | 0% (6 unknown) |
+| Cutoffs (2.x) | 0/6 | 0/6 | 0/6 | 0% (6 partial via EDI/INTTRA) |
 | Container Milestones (3.x) | 0/9 | 0/9 | 1/9 | 0% (8 partial via portal/aggregators, 1 unknown) |
 | Transport Events (4.x) | 0/4 | 0/4 | 0/4 | 0% (4 partial via portal/aggregators) |
 | Change Detection (5.x) | 0/6 | 6/6 | 0/6 | 0% |

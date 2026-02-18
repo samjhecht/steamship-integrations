@@ -164,16 +164,16 @@ Safmarine shipments are accessed entirely through Maersk's API infrastructure. S
 
 ### Coverage Summary
 
-| Category | Fields Available | Fields Unavailable | Fields Unknown | Coverage % |
-|----------|-----------------|-------------------|----------------|-----------|
-| API Domains (1.x) | 4/5 | 0/5 | 1/5 | 80% |
-| Cutoffs (2.x) | 5/6 | 0/6 | 1/6 | 83% |
-| Container Milestones (3.x) | 9/9 | 0/9 | 0/9 | 100% |
-| Transport Events (4.x) | 4/4 | 0/4 | 0/4 | 100% |
-| Change Detection (5.x) | 6/6 | 0/6 | 0/6 | 100% |
-| **Total** | **28/30** | **0/30** | **2/30** | **93%** |
+| Category | Fields Available | Fields Partial | Fields Unavailable | Fields Unknown | Coverage % |
+|----------|-----------------|---------------|-------------------|----------------|-----------|
+| API Domains (1.x) | 4/5 | 1/5 | 0/5 | 0/5 | 80% |
+| Cutoffs (2.x) | 5/6 | 1/6 | 0/6 | 0/6 | 83% |
+| Container Milestones (3.x) | 9/9 | 0/9 | 0/9 | 0/9 | 100% |
+| Transport Events (4.x) | 4/4 | 0/4 | 0/4 | 0/4 | 100% |
+| Change Detection (5.x) | 6/6 | 0/6 | 0/6 | 0/6 | 100% |
+| **Total** | **28/30** | **2/30** | **0/30** | **0/30** | **93%** |
 
-> **Note**: The 2 partial/unknown fields (1.4 Shipping Instructions, 2.6 LCL Cutoff) are available through Maersk's infrastructure but marked as caveated because Safmarine-specific behavior is unverified. Effective coverage through Maersk's APIs is likely 30/30 once live testing confirms Safmarine B/L compatibility.
+> **Note**: The 2 partial fields (1.4 Shipping Instructions, 2.6 LCL Cutoff) are available through Maersk's infrastructure but marked as partial because Safmarine-specific behavior is unverified. Effective coverage through Maersk's APIs is likely 30/30 once live testing confirms Safmarine B/L compatibility.
 
 ---
 

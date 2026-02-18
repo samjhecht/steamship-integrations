@@ -195,6 +195,23 @@ ESL does not publish any public API endpoints. All digital services are accessed
 
 ---
 
+## Webhook / Push Support
+
+| Detail | Value |
+|--------|-------|
+| **Webhooks supported?** | No |
+| **Subscription endpoint** | N/A |
+| **Subscription management** | N/A |
+| **Subscribable event types** | N/A |
+| **Callback format** | N/A |
+| **Callback authentication** | N/A |
+| **Retry policy on failure** | N/A |
+| **Documented reliability** | N/A |
+
+No webhook or push notification support available.
+
+---
+
 ## Non-API Access Methods
 
 ### Web Portal Tracking

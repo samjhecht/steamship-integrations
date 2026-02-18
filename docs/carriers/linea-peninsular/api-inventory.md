@@ -161,6 +161,18 @@ To obtain any programmatic access, SSL would likely need to either: (1) establis
 
 ---
 
+## Endpoint Reference / Lookup Methods
+
+No API endpoints available. Tracking is limited to the customer portal.
+
+---
+
+## Rate Limits
+
+No API available; rate limits not applicable.
+
+---
+
 ## Non-API Access Methods
 
 ### Web Portal Tracking

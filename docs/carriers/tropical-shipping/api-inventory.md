@@ -167,6 +167,12 @@ SSL would need to explore alternative access methods: (1) contact Tropical Shipp
 
 ---
 
+## Endpoint Reference
+
+No API endpoints available. Tracking is limited to the eServices portal.
+
+---
+
 ## Non-API Access Methods
 
 ### Web Portal Tracking

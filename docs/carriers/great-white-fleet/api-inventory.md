@@ -173,6 +173,39 @@ Great White Fleet does not expose any public API endpoints. This section is inte
 
 ---
 
+## Rate Limits & Quotas
+
+| Detail | Value | Source |
+|--------|-------|--------|
+| **Global rate limit** | N/A | N/A |
+| **Per-endpoint limits** | N/A | N/A |
+| **Daily/monthly quota** | N/A | N/A |
+| **Rate limit response** | N/A | N/A |
+| **Rate limit by** | N/A | N/A |
+| **Burst allowance** | N/A | N/A |
+| **Different tiers** | N/A | N/A |
+
+No API available; rate limits not applicable.
+
+---
+
+## Webhook / Push Support
+
+| Detail | Value |
+|--------|-------|
+| **Webhooks supported?** | No |
+| **Subscription endpoint** | N/A |
+| **Subscription management** | N/A |
+| **Subscribable event types** | N/A |
+| **Callback format** | N/A |
+| **Callback authentication** | N/A |
+| **Retry policy on failure** | N/A |
+| **Documented reliability** | N/A |
+
+No webhook or push notification support available.
+
+---
+
 ## Non-API Access Methods
 
 ### Web Portal Tracking

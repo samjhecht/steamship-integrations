@@ -159,14 +159,14 @@ ONE has a developer portal at developers.one-line.com, which is a positive sign 
 
 ### Coverage Summary
 
-| Category | Fields w/ Caveats (⚠️) | Fields Unavailable (❌) | Fields Unknown (❓) | Total | Notes |
-|----------|------------------------|------------------------|---------------------|-------|-------|
-| API Domains (1.x) | 4/5 | 0/5 | 1/5 | 5 | Schedules, routes, booking, SI available via EDI/portal; API unverified |
-| Cutoffs (2.x) | 3/6 | 0/6 | 3/6 | 6 | DCO, VCO, FCO likely from portal "deadlines" feature |
-| Container Milestones (3.x) | 7/9 | 0/9 | 2/9 | 9 | Core milestones confirmed by third-party trackers |
-| Transport Events (4.x) | 4/4 | 0/4 | 0/4 | 4 | ETD/ETA confirmed on eCommerce platform |
-| Change Detection (5.x) | 2/6 | 0/6 | 4/6 | 6 | Polling and classifier progression expected per DCSA |
-| **Total** | **20/30** | **0/30** | **10/30** | **30** | **0% confirmed, 67% likely, 33% unknown** |
+| Category | Fields Available | Fields Unavailable | Fields Unknown | Coverage % |
+|----------|-----------------|-------------------|----------------|-----------|
+| API Domains (1.x) | 0/5 | 0/5 | 1/5 | 0% (4 partial via EDI/portal; API unverified) |
+| Cutoffs (2.x) | 0/6 | 0/6 | 3/6 | 0% (3 partial: DCO, VCO, FCO likely from portal "deadlines" feature) |
+| Container Milestones (3.x) | 0/9 | 0/9 | 2/9 | 0% (7 partial: core milestones confirmed by third-party trackers) |
+| Transport Events (4.x) | 0/4 | 0/4 | 0/4 | 0% (4 partial: ETD/ETA confirmed on eCommerce platform) |
+| Change Detection (5.x) | 0/6 | 0/6 | 4/6 | 0% (2 partial: polling and classifier progression expected per DCSA) |
+| **Total** | **0/30** | **0/30** | **10/30** | **0% confirmed, 67% likely, 33% unknown** |
 
 > **Important caveat**: No fields could be marked as fully confirmed (green checkmark) because ONE's developer portal is SPA-rendered and API documentation could not be reviewed without registration. The 20 "caveat" fields (67%) reflect capabilities that are expected to exist based on strong indirect evidence: DCSA founding membership with confirmed TNT implementation, comprehensive EDI support covering the same functional areas, eCommerce platform features showing the data, and third-party tracker milestone coverage. The 10 "unknown" fields (33%) lack even indirect evidence. Zero fields were assessed as unavailable, which is consistent with ONE's position as a major DCSA carrier. To convert caveats to confirmed availability, registration on the developer portal is required.
 

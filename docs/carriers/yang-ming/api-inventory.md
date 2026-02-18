@@ -15,7 +15,7 @@
 | **Carrier Name** | Yang Ming Marine Transport Corp. (Yang Ming Line / YML) |
 | **SCAC Code** | YMLU |
 | **Parent Company** | Yang Ming Marine Transport Corp. (independent, publicly traded on TWSE) |
-| **Alliance** | THE Alliance (with ONE, HMM) |
+| **Alliance** | THE Alliance (with Hapag-Lloyd, ONE, HMM) |
 | **Primary Services** | Container shipping |
 | **Market Position** | ~9th largest container shipping line globally; Taiwan's second-largest carrier (after Evergreen); fleet of ~100 vessels, ~724,000 TEU capacity |
 | **Headquarters** | Keelung, Taiwan |

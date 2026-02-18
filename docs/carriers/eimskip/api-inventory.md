@@ -267,6 +267,23 @@ Given Eimskip's position as a niche North Atlantic carrier, API access may be re
 
 ---
 
+## Webhook / Push Support
+
+| Detail | Value |
+|--------|-------|
+| **Webhooks supported?** | No |
+| **Subscription endpoint** | N/A |
+| **Subscription management** | N/A |
+| **Subscribable event types** | N/A |
+| **Callback format** | N/A |
+| **Callback authentication** | N/A |
+| **Retry policy on failure** | N/A |
+| **Documented reliability** | N/A |
+
+No webhook or push notification support available. Eimskip does not offer a documented public API.
+
+---
+
 ## Non-API Access Methods
 
 ### Web Portal Tracking
