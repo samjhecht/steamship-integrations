@@ -29,17 +29,17 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | American President Lines (APL) | APLU | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
 | ANL | | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
 | Atlantic Container Line (ACL) | ACLU | Grimaldi Group | | | | | Not Started | Not Started |
-| Bahri | | Independent | | | | | Not Started | Not Started |
+| Bahri | NSAU | Independent | None (Portal Only) | No (not a DCSA member) | N/A (no API; web portal uses username/password) | N/A | Complete | Not Started |
 | CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
 | Crowley | CMCU | Independent | | | | | Not Started | Not Started |
 | CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
 | CU Lines | | Independent | | | | | Not Started | Not Started |
-| Dole | | Independent | | | | | Not Started | Not Started |
+| Dole Ocean Cargo Express | DOLQ | Independent | None (Portal Only) | No (not a DCSA member) | N/A (no API; Salesforce portal login for customers) | N/A | Complete | Not Started |
 | Eimskip | EIMU | Independent | | | | | Not Started | Not Started |
-| Emirates Shipping Line (ESL) | | Independent | | | | | Not Started | Not Started |
-| FESCO Transportation Group | | Independent | | | | | Not Started | Not Started |
-| G2 Ocean | | Independent | | | | | Not Started | Not Started |
+| Emirates Shipping Line (ESL) | ESPU | Independent | None (EDI + Portal only) | No | Partner Required (custom API/EDI on request) | N/A | Complete | Not Started |
+| FESCO Transportation Group | FESO | FESCO Group (Rosatom) / Independent | None (Portal Only) | No (not a DCSA member) | N/A (no API; MY.FESCO web portal only) | N/A | Complete | Not Started |
+| G2 Ocean | GSSW | Independent (JV: Gearbulk + Grieg Star) | None (Portal Only) | No (not a container liner; DCSA N/A) | N/A (no public API; MyG2 portal requires partner login) | N/A | Complete | Not Started |
 | Great White Fleet | | Independent | | | | | Not Started | Not Started |
 | Hamburg Süd | SUDU | Maersk | | | | | Not Started | Not Started |
 | Hyundai Merchant Marine (HMM) | HDMU | HMM / THE Alliance | Tracking + Schedules | Yes -- DCSA founding member (TNT ~v2.2, BKG/BL piloted Nov 2025) | API Key (x-Gateway-APIKey) | [apiportal.hmm21.com](https://apiportal.hmm21.com/api) | Complete | Not Started |
