@@ -46,17 +46,17 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Independent Container Line (ICL) | | Independent | | | | | Not Started | Not Started |
 | Linea Peninsular | | Independent | | | | | Not Started | Not Started |
 | Marfret Compagnie Maritime | | Independent | | | | | Not Started | Not Started |
-| Maruba | | Independent | | | | | Not Started | Not Started |
+| Maruba | MRUB | Independent | None | No | N/A | N/A | Complete | Not Started |
 | Matson | MATS | Independent | | | | | Not Started | Not Started |
 | Ocean Network Express (ONE) | ONEY | ONE / THE Alliance | Tracking (DCSA TNT confirmed; full suite unverified) | Yes — DCSA founding member (TNT confirmed; BKG, CS, eDoc unverified) | Unknown (portal requires registration) | [developers.one-line.com](https://developers.one-line.com) | Complete | Not Started |
 | Orient Overseas Container Line (OOCL) | OOLU | COSCO Group / Ocean Alliance | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via CargoSmart) | N/A | Complete | Not Started |
-| Pasha Hawaii Transport Lines | | Independent | | | | | Not Started | Not Started |
-| PT. Andalan Pacific Samudra | | Independent | | | | | Not Started | Not Started |
+| Pasha Hawaii Transport Lines | PSHI | The Pasha Group / Independent | None (EDI + Portal only) | No | N/A (no API; EDI via direct integration) | N/A | Complete | Not Started |
+| PT. Andalan Pacific Samudra | Unknown | Independent | None | No | N/A | N/A -- freight forwarder, no API | Complete | Not Started |
 | Safmarine | SAFM | Maersk | | | | | Not Started | Not Started |
 | SeaLand | SEJJ | Maersk | | | | | Not Started | Not Started |
-| SeaLead | | Independent | | | | | Not Started | Not Started |
+| SeaLead | SJHH | Independent | None (Portal Only) | No | N/A | N/A (no developer portal; [customer portal](https://customer.sea-lead.com)) | Complete | Not Started |
 | Seaboard Marine | SEAL | Independent | | | | | Not Started | Not Started |
-| Shipping Corporation of India | SCIU | Independent | | | | | Not Started | Not Started |
+| Shipping Corporation of India | SCIU | Government of India / Independent | None (Portal Only) | No | N/A | N/A | Complete | Not Started |
 | SM Line (Shipping Maestro) | SMLM | Independent | | | | | Not Started | Not Started |
 | Swire Shipping (Polynesia Line) | | Independent | | | | | Not Started | Not Started |
 | Swire Shipping (Westwood) | | Independent | | | | | Not Started | Not Started |
