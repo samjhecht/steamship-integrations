@@ -58,11 +58,11 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Seaboard Marine | SEAL | Independent | | | | | Not Started | Not Started |
 | Shipping Corporation of India | SCIU | Independent | | | | | Not Started | Not Started |
 | SM Line (Shipping Maestro) | SMLM | Independent | | | | | Not Started | Not Started |
-| Swire Shipping (Polynesia Line) | | Independent | | | | | Not Started | Not Started |
-| Swire Shipping (Westwood) | | Independent | | | | | Not Started | Not Started |
-| T. S. Lines | | Independent | | | | | Not Started | Not Started |
-| Trailer Bridge | | Independent | | | | | Not Started | Not Started |
-| Tropical Shipping | | Independent | | | | | Not Started | Not Started |
+| Swire Shipping (Polynesia Line) | PLLU | CNCo (Swire Group) / Independent | None (Portal Only) | No | N/A (no public API) | N/A | Complete | Not Started |
+| Swire Shipping (Westwood) | WWSU / SSBF / CHVW | CNCo (Swire Group) / Independent | None (Portal Only) | No | N/A (no public API) | N/A (customer portal at [online-na.swireshipping.com](https://online-na.swireshipping.com)) | Complete | Not Started |
+| T. S. Lines | TSTU | Independent | None | No | N/A | N/A (no developer portal) | Complete | Not Started |
+| Trailer Bridge | TRLD | Independent | None (Portal Only) | No | N/A | N/A (QuickTrack portal: [quicktrack.trailerbridge.com](https://quicktrack.trailerbridge.com/)) | Complete | Not Started |
+| Tropical Shipping | TSCW | Saltchuk Resources / Independent | None (Portal Only) | No | N/A | N/A (eServices portal: [login.tropical.com](https://login.tropical.com/)) | Complete | Not Started |
 | Turkon America Line | | Independent | | | | | Not Started | Not Started |
 | Wallenius Wilhelmsen Logistics | WLWH | Independent | | | | | Not Started | Not Started |
 | Wan Hai | WHLC | Independent | | | | | Not Started | Not Started |
