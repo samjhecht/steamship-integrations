@@ -63,9 +63,9 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | T. S. Lines | | Independent | | | | | Not Started | Not Started |
 | Trailer Bridge | | Independent | | | | | Not Started | Not Started |
 | Tropical Shipping | | Independent | | | | | Not Started | Not Started |
-| Turkon America Line | | Independent | | | | | Not Started | Not Started |
-| Wallenius Wilhelmsen Logistics | WLWH | Independent | | | | | Not Started | Not Started |
+| Turkon America Line | TRKU | Independent | None (aggregator only) | No | N/A | N/A | Complete | Not Started |
+| Wallenius Wilhelmsen Logistics | WLWH | Independent | None (Portal + Aggregators only) | No (RoRo carrier; DCSA is container-focused) | N/A (no API; use project44 OAuth2) | N/A (no developer portal) | Complete | Not Started |
 | Wan Hai | WHLC | Independent | | | | | Not Started | Not Started |
-| WECO Shipping | | Independent | | | | | Not Started | Not Started |
+| WECO Shipping | N/A (not a container line) | Independent | None (no API; not a container carrier) | No (not applicable -- bulk/tanker operator) | N/A | N/A | Complete | Not Started |
 | Yang Ming Line | YMLU | Yang Ming / THE Alliance | | | | | Not Started | Not Started |
 | ZIM Integrated Shipping Services | ZIMU | ZIM / Independent (Hapag-Lloyd acquisition pending, late 2026) | Tracking (DCSA TNT adopted; full suite unverified) | Yes -- DCSA founding member (TNT adopted; version unconfirmed) | API Token (Azure API Management; specific mechanism requires portal access) | [api.zim.com](https://api.zim.com/) | Complete | Not Started |
