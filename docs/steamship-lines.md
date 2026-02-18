@@ -58,11 +58,11 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Seaboard Marine | SMLU | Seaboard Corporation / Independent | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via AS2/SFTP) | N/A | Complete | Not Started |
 | Shipping Corporation of India | SCIU | Government of India / Independent | None (Portal Only) | No | N/A | N/A | Complete | Not Started |
 | SM Line (Shipping Maestro) | SMLM | Independent (South Korea; SM Group; HMM slot exchange) | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via INTTRA/E2open) | N/A | Complete | Not Started |
-| Swire Shipping (Polynesia Line) | | Independent | | | | | Not Started | Not Started |
-| Swire Shipping (Westwood) | | Independent | | | | | Not Started | Not Started |
-| T. S. Lines | | Independent | | | | | Not Started | Not Started |
-| Trailer Bridge | | Independent | | | | | Not Started | Not Started |
-| Tropical Shipping | | Independent | | | | | Not Started | Not Started |
+| Swire Shipping (Polynesia Line) | PLLU | CNCo (Swire Group) / Independent | None (Portal Only) | No | N/A (no public API) | N/A | Complete | Not Started |
+| Swire Shipping (Westwood) | WWSU / SSBF / CHVW | CNCo (Swire Group) / Independent | None (Portal Only) | No | N/A (no public API) | N/A (customer portal at [online-na.swireshipping.com](https://online-na.swireshipping.com)) | Complete | Not Started |
+| T. S. Lines | TSTU | Independent | None | No | N/A | N/A (no developer portal) | Complete | Not Started |
+| Trailer Bridge | TRLD | Independent | None (Portal Only) | No | N/A | N/A (QuickTrack portal: [quicktrack.trailerbridge.com](https://quicktrack.trailerbridge.com/)) | Complete | Not Started |
+| Tropical Shipping | TSCW | Saltchuk Resources / Independent | None (Portal Only) | No | N/A | N/A (eServices portal: [login.tropical.com](https://login.tropical.com/)) | Complete | Not Started |
 | Turkon America Line | | Independent | | | | | Not Started | Not Started |
 | Wallenius Wilhelmsen Logistics | WLWH | Independent | | | | | Not Started | Not Started |
 | Wan Hai | WHLC | Independent | None (EDI + Portal + INTTRA) | No (not a DCSA member) | N/A (no API; INTTRA/E2open or aggregators) | N/A | Complete | Not Started |
