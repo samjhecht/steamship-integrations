@@ -29,17 +29,17 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | American President Lines (APL) | APLU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | ANL | ANNU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Atlantic Container Line (ACL) | ACLU | Grimaldi Group / Independent | None (EDI + Portal only) | No | N/A (no API; EDI via Trading Partner Agreement) | N/A | Complete | Not Started |
-| Bahri | | Independent | | | | | Not Started | Not Started |
+| Bahri | NSAU | Independent | None (Portal Only) | No (not a DCSA member) | N/A (no API; web portal uses username/password) | N/A | Complete | Not Started |
 | CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
 | Crowley | CMCU | Independent | None (Portal + EDI only) | No | N/A (no API; EDI via INTTRA) | N/A | Complete | Not Started |
 | CSAV | CHIW | Hapag-Lloyd (merged 2014; CSAV is ~30% equity holder) | None (uses Hapag-Lloyd) | No (via HL: Yes, TNT v2.2.4 BETA) | N/A (via HL: API Key) | N/A (use [api-portal.hlag.com](https://api-portal.hlag.com)) | Complete | Not Started |
 | CU Lines | CULU | Independent | Portal Only | No | N/A (no API; eService portal only) | [eService](https://eservice.culines.com/) | Complete | Not Started |
-| Dole | | Independent | | | | | Not Started | Not Started |
+| Dole Ocean Cargo Express | DOLQ | Independent | None (Portal Only) | No (not a DCSA member) | N/A (no API; Salesforce portal login for customers) | N/A | Complete | Not Started |
 | Eimskip | EIMU | Independent (Iceland-based) | Tracking + Schedules | No | Unknown (undocumented) | [api.eimskip.com/Help](http://api.eimskip.com/Help) | Complete | Not Started |
-| Emirates Shipping Line (ESL) | | Independent | | | | | Not Started | Not Started |
-| FESCO Transportation Group | | Independent | | | | | Not Started | Not Started |
-| G2 Ocean | | Independent | | | | | Not Started | Not Started |
+| Emirates Shipping Line (ESL) | ESPU | Independent | None (EDI + Portal only) | No | Partner Required (custom API/EDI on request) | N/A | Complete | Not Started |
+| FESCO Transportation Group | FESO | FESCO Group (Rosatom) / Independent | None (Portal Only) | No (not a DCSA member) | N/A (no API; MY.FESCO web portal only) | N/A | Complete | Not Started |
+| G2 Ocean | GSSW | Independent (JV: Gearbulk + Grieg Star) | None (Portal Only) | No (not a container liner; DCSA N/A) | N/A (no public API; MyG2 portal requires partner login) | N/A | Complete | Not Started |
 | Great White Fleet | UBCU | Chiquita Brands International / Independent | None (Portal Only) | No | N/A | N/A (no developer portal) | Complete | Not Started |
 | Hamburg Süd | SUDU | Maersk (subsidiary, acquired 2017; brand retired) | Full Suite (via Maersk) | Yes (TNT v2/v3, BKG v2, CS v1 — via Maersk) | OAuth2 + API Key (via Maersk) | [developer.maersk.com](https://developer.maersk.com) (no independent portal) | Complete | Not Started |
 | Hyundai Merchant Marine (HMM) | HDMU | HMM / THE Alliance | Tracking + Schedules | Yes -- DCSA founding member (TNT ~v2.2, BKG/BL piloted Nov 2025) | API Key (x-Gateway-APIKey) | [apiportal.hmm21.com](https://apiportal.hmm21.com/api) | Complete | Not Started |
