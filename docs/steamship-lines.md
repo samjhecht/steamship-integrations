@@ -34,18 +34,18 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
 | Crowley | CMCU | Independent | None (Portal + EDI only) | No | N/A (no API; EDI via INTTRA) | N/A | Complete | Not Started |
 | CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
-| CU Lines | | Independent | | | | | Not Started | Not Started |
+| CU Lines | CULU | Independent | Portal Only | No | N/A (no API; eService portal only) | [eService](https://eservice.culines.com/) | Complete | Not Started |
 | Dole | | Independent | | | | | Not Started | Not Started |
 | Eimskip | EIMU | Independent (Iceland-based) | Tracking + Schedules | No | Unknown (undocumented) | [api.eimskip.com/Help](http://api.eimskip.com/Help) | Complete | Not Started |
 | Emirates Shipping Line (ESL) | | Independent | | | | | Not Started | Not Started |
 | FESCO Transportation Group | | Independent | | | | | Not Started | Not Started |
 | G2 Ocean | | Independent | | | | | Not Started | Not Started |
-| Great White Fleet | | Independent | | | | | Not Started | Not Started |
+| Great White Fleet | UBCU | Chiquita Brands International / Independent | None (Portal Only) | No | N/A | N/A (no developer portal) | Complete | Not Started |
 | Hamburg Süd | SUDU | Maersk | | | | | Not Started | Not Started |
 | Hyundai Merchant Marine (HMM) | HDMU | HMM / THE Alliance | Tracking + Schedules | Yes -- DCSA founding member (TNT ~v2.2, BKG/BL piloted Nov 2025) | API Key (x-Gateway-APIKey) | [apiportal.hmm21.com](https://apiportal.hmm21.com/api) | Complete | Not Started |
-| Independent Container Line (ICL) | | Independent | | | | | Not Started | Not Started |
-| Linea Peninsular | | Independent | | | | | Not Started | Not Started |
-| Marfret Compagnie Maritime | | Independent | | | | | Not Started | Not Started |
+| Independent Container Line (ICL) | IILU | Independent | None (EDI + Portal only) | No | N/A (no API; EDI + aggregators) | N/A | Complete | Not Started |
+| Linea Peninsular | LPUS | Independent | None (Portal Only) | No | N/A (no API; customer portal only) | N/A | Complete | Not Started |
+| Marfret Compagnie Maritime | MFTU | Independent | None (Portal + INTTRA EDI only) | No | N/A (no API; EDI via INTTRA) | N/A | Complete | Not Started |
 | Maruba | | Independent | | | | | Not Started | Not Started |
 | Matson | MATS | Independent (US Jones Act carrier) | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via X12, aggregators for tracking) | N/A | Complete | Not Started |
 | Ocean Network Express (ONE) | ONEY | ONE / THE Alliance | Tracking (DCSA TNT confirmed; full suite unverified) | Yes — DCSA founding member (TNT confirmed; BKG, CS, eDoc unverified) | Unknown (portal requires registration) | [developers.one-line.com](https://developers.one-line.com) | Complete | Not Started |
