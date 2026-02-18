@@ -26,9 +26,9 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Carrier Name | SCAC | Parent / Alliance | API Status | DCSA | Auth Type | Developer Portal | Audit | Adapter |
 |---|---|---|---|---|---|---|---|---|
 | Aliança | | Maersk | | | | | Not Started | Not Started |
-| American President Lines (APL) | APLU | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
-| ANL | | CMA CGM / Ocean Alliance | | | | | Not Started | Not Started |
-| Atlantic Container Line (ACL) | ACLU | Grimaldi Group | | | | | Not Started | Not Started |
+| American President Lines (APL) | APLU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
+| ANL | ANNU | CMA CGM / Ocean Alliance (subsidiary) | Full Suite (via CMA CGM) | Partial (TNT v2.2.0, CS v1.0 PILOT) -- via CMA CGM | Dual (API Key + OAuth2) -- via CMA CGM | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
+| Atlantic Container Line (ACL) | ACLU | Grimaldi Group / Independent | None (EDI + Portal only) | No | N/A (no API; EDI via Trading Partner Agreement) | N/A | Complete | Not Started |
 | Bahri | | Independent | | | | | Not Started | Not Started |
 | CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
@@ -36,7 +36,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
 | CU Lines | | Independent | | | | | Not Started | Not Started |
 | Dole | | Independent | | | | | Not Started | Not Started |
-| Eimskip | EIMU | Independent | | | | | Not Started | Not Started |
+| Eimskip | EIMU | Independent (Iceland-based) | Tracking + Schedules | No | Unknown (undocumented) | [api.eimskip.com/Help](http://api.eimskip.com/Help) | Complete | Not Started |
 | Emirates Shipping Line (ESL) | | Independent | | | | | Not Started | Not Started |
 | FESCO Transportation Group | | Independent | | | | | Not Started | Not Started |
 | G2 Ocean | | Independent | | | | | Not Started | Not Started |
@@ -57,7 +57,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | SeaLead | | Independent | | | | | Not Started | Not Started |
 | Seaboard Marine | SMLU | Seaboard Corporation / Independent | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via AS2/SFTP) | N/A | Complete | Not Started |
 | Shipping Corporation of India | SCIU | Independent | | | | | Not Started | Not Started |
-| SM Line (Shipping Maestro) | SMLM | Independent | | | | | Not Started | Not Started |
+| SM Line (Shipping Maestro) | SMLM | Independent (South Korea; SM Group; HMM slot exchange) | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via INTTRA/E2open) | N/A | Complete | Not Started |
 | Swire Shipping (Polynesia Line) | | Independent | | | | | Not Started | Not Started |
 | Swire Shipping (Westwood) | | Independent | | | | | Not Started | Not Started |
 | T. S. Lines | | Independent | | | | | Not Started | Not Started |
