@@ -32,7 +32,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Bahri | | Independent | | | | | Not Started | Not Started |
 | CMA CGM | CMDU | CMA CGM / Ocean Alliance | Full Suite | Partial (TNT v2.2.0, CS v1.0 PILOT) | Dual (API Key + OAuth2) | [api-portal.cma-cgm.com](https://api-portal.cma-cgm.com) | Complete | Not Started |
 | Cosco Container Lines (COSCO) | COSU | COSCO Group / Ocean Alliance | Tracking + Schedules + Booking + Rates | No | HMAC-SHA1 (API Key + Secret Key) | [COP Portal](https://cop.lines.coscoshipping.com/) | Complete | Not Started |
-| Crowley | CMCU | Independent | | | | | Not Started | Not Started |
+| Crowley | CMCU | Independent | None (Portal + EDI only) | No | N/A (no API; EDI via INTTRA) | N/A | Complete | Not Started |
 | CSAV | | Hapag-Lloyd | | | | | Not Started | Not Started |
 | CU Lines | | Independent | | | | | Not Started | Not Started |
 | Dole | | Independent | | | | | Not Started | Not Started |
@@ -47,7 +47,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Linea Peninsular | | Independent | | | | | Not Started | Not Started |
 | Marfret Compagnie Maritime | | Independent | | | | | Not Started | Not Started |
 | Maruba | | Independent | | | | | Not Started | Not Started |
-| Matson | MATS | Independent | | | | | Not Started | Not Started |
+| Matson | MATS | Independent (US Jones Act carrier) | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via X12, aggregators for tracking) | N/A | Complete | Not Started |
 | Ocean Network Express (ONE) | ONEY | ONE / THE Alliance | Tracking (DCSA TNT confirmed; full suite unverified) | Yes — DCSA founding member (TNT confirmed; BKG, CS, eDoc unverified) | Unknown (portal requires registration) | [developers.one-line.com](https://developers.one-line.com) | Complete | Not Started |
 | Orient Overseas Container Line (OOCL) | OOLU | COSCO Group / Ocean Alliance | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via CargoSmart) | N/A | Complete | Not Started |
 | Pasha Hawaii Transport Lines | | Independent | | | | | Not Started | Not Started |
@@ -55,7 +55,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Safmarine | SAFM | Maersk | | | | | Not Started | Not Started |
 | SeaLand | SEJJ | Maersk | | | | | Not Started | Not Started |
 | SeaLead | | Independent | | | | | Not Started | Not Started |
-| Seaboard Marine | SEAL | Independent | | | | | Not Started | Not Started |
+| Seaboard Marine | SMLU | Seaboard Corporation / Independent | None (EDI + Portal only) | No (not a DCSA member) | N/A (no API; EDI via AS2/SFTP) | N/A | Complete | Not Started |
 | Shipping Corporation of India | SCIU | Independent | | | | | Not Started | Not Started |
 | SM Line (Shipping Maestro) | SMLM | Independent | | | | | Not Started | Not Started |
 | Swire Shipping (Polynesia Line) | | Independent | | | | | Not Started | Not Started |
@@ -65,7 +65,7 @@ Quick-reference table for all carriers SSL works with. Detailed per-carrier info
 | Tropical Shipping | | Independent | | | | | Not Started | Not Started |
 | Turkon America Line | | Independent | | | | | Not Started | Not Started |
 | Wallenius Wilhelmsen Logistics | WLWH | Independent | | | | | Not Started | Not Started |
-| Wan Hai | WHLC | Independent | | | | | Not Started | Not Started |
+| Wan Hai | WHLC | Independent | None (EDI + Portal + INTTRA) | No (not a DCSA member) | N/A (no API; INTTRA/E2open or aggregators) | N/A | Complete | Not Started |
 | WECO Shipping | | Independent | | | | | Not Started | Not Started |
 | Yang Ming Line | YMLU | Yang Ming / THE Alliance | | | | | Not Started | Not Started |
 | ZIM Integrated Shipping Services | ZIMU | ZIM / Independent (Hapag-Lloyd acquisition pending, late 2026) | Tracking (DCSA TNT adopted; full suite unverified) | Yes -- DCSA founding member (TNT adopted; version unconfirmed) | API Token (Azure API Management; specific mechanism requires portal access) | [api.zim.com](https://api.zim.com/) | Complete | Not Started |
