@@ -122,7 +122,7 @@ fi
 echo "=== Checking Governance Files ==="
 
 # From schema.governanceFiles
-for file in .wingman/CONSTITUTION.md .wingman/ROADMAP.md; do
+for file in .wingman/config/CONSTITUTION.md .wingman/ROADMAP.md; do
   if [ -f "$file" ]; then
     echo "✓ $file exists"
   else

@@ -9,7 +9,11 @@ PR to review: {{pr_number}}
 
 # Review PR
 
+<purpose>
 Orchestrates a modular, parallelized pull request review. Four specialized reviewer subagents analyze the PR independently, their findings are consolidated and posted to the PR, and fixable issues are resolved automatically.
+</purpose>
+
+<required_context>
 
 ## Input Variables
 
@@ -22,6 +26,23 @@ If `pr_number` is provided via workflow context, use it directly as the PR ident
 
 - **PR identifier** (positional, optional): A PR number, URL, branch name, or empty to use the current branch.
 - **--type** (optional): One of `code-quality`, `security`, `testing`, `completeness`, or `all` (default: `all`). When a single type is specified, only that reviewer is dispatched.
+
+</required_context>
+
+<available_agent_types>
+
+| Reviewer | subagent_type |
+|----------|---------------|
+| code-quality | `code-quality-reviewer` |
+| security | `security-reviewer` |
+| testing | `testing-reviewer` |
+| completeness | `completeness-reviewer` |
+
+</available_agent_types>
+
+<process>
+
+<step name="context-gathering" priority="first">
 
 ## Phase 1: Context Gathering
 
@@ -80,6 +101,10 @@ gh issue view {SPEC_OR_ISSUE_NUMBER} --json title,body
 ```
 
 Capture `{SPEC_CONTENT}` (title + body), or empty string if no spec is linked.
+
+</step>
+
+<step name="dispatch-reviewers">
 
 ## Phase 2: Dispatch Reviewers
 
@@ -144,6 +169,10 @@ Each subagent:
 
 If `--type` specifies a single reviewer, dispatch only that one subagent (no parallelism needed).
 
+</step>
+
+<step name="consolidation">
+
 ## Phase 3: Consolidation
 
 ### Step 1: Read the consolidation prompt
@@ -177,6 +206,10 @@ Capture:
 - `{FINDINGS_NITS}` -- list of nit findings
 - `{STRENGTHS}` -- merged strengths list
 - `{REVIEW_TYPES}` -- comma-separated list of review types that ran
+
+</step>
+
+<step name="post-findings">
 
 ## Phase 4: Post Findings
 
@@ -229,13 +262,19 @@ Rules for the comment:
 gh pr comment {PR_NUMBER} --body "{FORMATTED_COMMENT}"
 ```
 
-Use a heredoc or temp file if the comment body contains characters that would break shell quoting.
+Always use a heredoc or temp file — never interpolate `{FORMATTED_COMMENT}` directly into a quoted string argument. PR diffs and descriptions can contain backticks, dollar signs, and nested quotes that will break inline shell interpolation.
 
 ### Step 3: Check verdict
 
+<gate type="yes-no">
 If the verdict is `PASS`, stop here. The review is complete. Report the result.
 
 If the verdict is `NEEDS FIXES` or `MAJOR REVISION`, proceed to Phase 5.
+</gate>
+
+</step>
+
+<step name="fix-issues">
 
 ## Phase 5: Fix Issues
 
@@ -405,6 +444,60 @@ Omit the "Skipped" section if nothing was skipped. Omit "Fixed" if nothing was f
 gh pr comment {PR_NUMBER} --body "{FOLLOW_UP_COMMENT}"
 ```
 
+### Step 9: Create Follow-On Issues for Unfixed Findings
+
+After posting the follow-up summary, iterate over findings that were skipped in Step 2 (categorized as "architectural", "needs human decision", or "subagent error"):
+
+For each unfixed finding:
+
+1. Create a tracked issue via `issues_create`:
+   ```
+   issues_create({
+     title: "Follow-on: [finding title from review]",
+     description: `## From Review
+
+   **PR:** #${PR_NUMBER} (${PR_URL})
+   **Reviewer:** ${REVIEW_TYPE}
+   **Severity:** ${SEVERITY}
+
+   ## Finding
+   ${FINDING_DESCRIPTION}
+
+   ## Suggested Fix
+   ${FIX_SUGGESTION}
+
+   ## Context
+   File: ${FILE_PATH}
+   Line: ${LINE_NUMBER}
+   Spec: ${SPEC_REFERENCE || "none linked"}`,
+     type: "issue",
+     labels: ["follow-on", "from-review"],
+     priority: severity === "critical" ? "high" : "medium",
+     governanceContext: {
+       parentTaskId: "${SPEC_ID}"
+     }
+   })
+   ```
+
+2. If a spec is linked, call `issues_set_parent` to link the follow-on issue to the spec
+
+3. Collect all created issue IDs for the follow-up comment update
+
+After creating all follow-on issues, update the follow-up comment (from Step 8) to include links:
+
+```markdown
+### Follow-On Issues Created
+| # | Issue | Finding | Priority |
+|---|-------|---------|----------|
+| 1 | #NNN  | [title] | high     |
+```
+
+If no findings were skipped (all were fixed), skip this step entirely.
+
+</step>
+
+<step name="update-pr-summary">
+
 ## Phase 6: Update PR Summary
 
 After all review and fix work is complete, update the PR description so it accurately reflects the final state of the PR. The PR summary is the permanent record of what the PR achieved -- review findings and fix details live in the comments and do not need to be restated.
@@ -415,6 +508,7 @@ Collect:
 - The current PR title and body (`gh pr view {PR_NUMBER} --json title,body`)
 - The full list of commits on the branch (`gh pr view {PR_NUMBER} --json commits --jq '.commits[].messageHeadline'`)
 - The linked spec or issue identifier (`{SPEC_CONTENT}` from Phase 1, if any)
+- The machine-managed PR links block delimited by `<!-- wingman-links:start -->` and `<!-- wingman-links:end -->`, if present
 - The review verdict and types that ran
 
 ### Step 2: Write the updated PR body
@@ -428,7 +522,11 @@ Update the PR body using `gh pr edit {PR_NUMBER} --body`. The body should contai
 
 ## Related
 
-- [Link to spec or issue, e.g. "Implements #1261" or "Fixes #42"]
+<!-- wingman-links:start -->
+- Refs #123
+- Closes #456
+<!-- wingman-links:end -->
+
 - [Any other related PRs or issues]
 
 ## Changes
@@ -446,8 +544,19 @@ Rules for the summary:
 - If the PR already has a well-written summary, preserve its content and augment it with the Review section. Do not discard information the author wrote.
 - If the PR body is empty or minimal, write the full summary from the commit history and diff context.
 - Keep the summary factual and concise. Do not editorialize or praise the changes.
+- Preserve the machine-managed links block exactly when it already exists:
+
+  ```markdown
+  ## Related
+  <!-- wingman-links:start -->
+  ...
+  <!-- wingman-links:end -->
+  ```
+
+  If that block exists, keep it as the authoritative Related section and do not paraphrase or replace its issue-link lines.
+- Never remove the machine-managed links block.
 - The Review section is always appended, even if the verdict was PASS with zero findings.
-- Use `gh pr edit` with a heredoc or temp file to avoid shell quoting issues.
+- Always use `gh pr edit` with a heredoc or temp file — never pass the body inline as a quoted string.
 
 ### Step 3: Update the title if needed
 
@@ -459,6 +568,23 @@ gh pr edit {PR_NUMBER} --title "{UPDATED_TITLE}"
 
 Only update the title if it is clearly inadequate. If the existing title is reasonable, leave it alone.
 
+</step>
+
+</process>
+
+<success_criteria>
+- [ ] PR identifier resolved and PR context gathered
+- [ ] All requested reviewer types dispatched (all four, or specified single type)
+- [ ] Findings consolidated and deduplicated across reviewers
+- [ ] Review findings posted as a PR comment
+- [ ] If verdict is PASS: review complete
+- [ ] If verdict is NEEDS FIXES or MAJOR REVISION: fixable issues addressed in isolated worktree
+- [ ] Fix changes committed and pushed to PR branch
+- [ ] PR description updated with Review section reflecting final state
+</success_criteria>
+
+<error_handling>
+
 ## Error Handling
 
 - **PR not found**: Stop immediately. Report the error with the identifier that was used.
@@ -467,3 +593,5 @@ Only update the title if it is clearly inadequate. If the existing title is reas
 - **Project rules**: Project rules are injected automatically into subagent context via `.claude/rules/` and the PreToolUse hook. The skill does not need to load or inject rules manually.
 - **Fix subagent failure**: If a fix subagent crashes or returns malformed output, record it as a skipped fix with reason "subagent error" and continue with other fixes.
 - **Git push failure**: Report the error. Do not force-push. Suggest the user resolve the conflict manually.
+
+</error_handling>

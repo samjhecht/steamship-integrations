@@ -87,7 +87,7 @@ Any implementation details, constraints, or considerations.
 
 Before creating issues, verify alignment with project principles:
 
-**Check**: Does this issue align with `.wingman/CONSTITUTION.md`?
+**Check**: Does this issue align with `.wingman/config/CONSTITUTION.md`?
 
 If creating a new feature issue, explicitly note which constitutional principles it supports.
 
@@ -195,7 +195,7 @@ Use the `writing-plans` skill, which automatically:
 ---
 
 **Related Documents**:
-- `.wingman/CONSTITUTION.md` - Project principles
+- `.wingman/config/CONSTITUTION.md` - Project principles
 - `.wingman/ROADMAP.md` - Strategic roadmap and tactical execution tracker
 - `../../docs/mcp-usage.md` - MCP tools documentation
 

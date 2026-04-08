@@ -123,7 +123,7 @@ governanceContext:
 
 **Purpose**: Supreme law - immutable design principles guiding all decisions
 
-**Location**: `.wingman/CONSTITUTION.md`
+**Location**: `.wingman/config/CONSTITUTION.md`
 
 **When to update**: Only via formal amendment process (see constitution itself)
 
@@ -160,7 +160,7 @@ governanceContext:
 
 ### Creating New Feature Specification
 
-1. **Constitutional Check**: Review `.wingman/CONSTITUTION.md` for alignment
+1. **Constitutional Check**: Review `.wingman/config/CONSTITUTION.md` for alignment
 2. **Roadmap Check**: Determine which phase in `.wingman/ROADMAP.md`
 3. **Create Specification**: Use template above
 4. **Add Constitutional Alignment Section**: Explicitly state which principles
@@ -193,7 +193,7 @@ governanceContext:
 
 **MANDATORY CHECKS**:
 
-1. **Constitutional Alignment**: Does this align with ALL principles in `.wingman/CONSTITUTION.md`?
+1. **Constitutional Alignment**: Does this align with ALL principles in `.wingman/config/CONSTITUTION.md`?
 2. **User Value**: Does this solve a real user problem?
 3. **Simplicity**: Is this the simplest solution that works?
 4. **Maintainability**: Can we maintain this long-term?
@@ -294,7 +294,7 @@ Use `.wingman/ROADMAP.md` for granular tracking:
 ---
 
 **Related Documents**:
-- `.wingman/CONSTITUTION.md` - Supreme law (read this first!)
+- `.wingman/config/CONSTITUTION.md` - Supreme law (read this first!)
 - `.wingman/ROADMAP.md` - Strategic plan and tactical execution
 - `../issues/README.md` - Implementation tracking
 - `../../docs/mcp-usage.md` - MCP tools reference

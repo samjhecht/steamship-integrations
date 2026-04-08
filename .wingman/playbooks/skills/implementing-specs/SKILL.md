@@ -4,6 +4,8 @@ description: Orchestrates specification implementation through planning, executi
 disable-model-invocation: true
 ---
 
+<purpose>
+
 # Implementing Specs
 
 ## Purpose
@@ -16,6 +18,10 @@ Orchestrates specification implementation by invoking existing wingman skills (w
 - User-facing features requiring verification gates
 - Need systematic audit trail through GitHub PR
 - Want to leverage existing planning and implementation skills
+
+</purpose>
+
+<required_context>
 
 ## Prerequisites
 
@@ -43,6 +49,18 @@ This skill orchestrates existing wingman skills rather than reimplementing their
 - Modular and maintainable (changes to planning flow in one place)
 - Testable (each skill can be tested independently)
 
+</required_context>
+
+<available_agent_types>
+
+| Agent | Purpose |
+|-------|---------|
+| planning-subagent | Invokes `writing-plans` skill to create MCP issues from specification |
+| implementation-subagent | Implements a single issue following `implementing-issue` skill (TDD, code review, fix loop) |
+| remediation-subagent | Creates and implements supplemental issues during VERIFY self-healing loop |
+
+</available_agent_types>
+
 ## Workflow Phases
 
 ```
@@ -50,6 +68,10 @@ INIT → PLAN → REVIEW → EXECUTE → VERIFY → PUBLISH → COMPLETE
 ```
 
 ---
+
+<process>
+
+<step name="init" priority="first">
 
 ## Phase 1: INIT
 
@@ -101,11 +123,19 @@ Create isolated worktree using MCP session tools and verify environment.
 - Worktree absolute path for subagent context
 - Branch name for PR creation
 
+<gate type="yes-no">
+
 ### Quality Gate
 
 Worktree must exist and be on correct branch.
 
+</gate>
+
+</step>
+
 ---
+
+<step name="plan">
 
 ## Phase 2: PLAN
 
@@ -216,9 +246,13 @@ Break specification into implementable tasks tracked as MCP issues.
 - GitHub PR created (draft mode)
 - Issue IDs list for execution phase
 
+<gate type="approve-revise-abort">
+
 ### Quality Gate
 
 Planning succeeds and issues are created. If planning fails or returns blockers, ESCALATE to user.
+
+</gate>
 
 ### Key Design Decision
 
@@ -229,7 +263,11 @@ Planning succeeds and issues are created. If planning fails or returns blockers,
 - Optional plan file (if created) provides architecture reference
 - This keeps PR descriptions concise while maintaining full traceability
 
+</step>
+
 ---
+
+<step name="review">
 
 ## Phase 3: REVIEW
 
@@ -258,8 +296,8 @@ Catch planning gaps early before wasting time on execution.
 
    | Coverage | Status                             |
    | -------- | ---------------------------------- |
-   | >= 95%   | ✅ PASS (automatic approval)       |
-   | < 95%    | ⚠️ NEEDS ATTENTION (user decision) |
+   | >= 95%   | PASS (automatic approval)          |
+   | < 95%    | NEEDS ATTENTION (user decision)    |
 
 4. **If coverage < 95%:**
 
@@ -324,12 +362,16 @@ Catch planning gaps early before wasting time on execution.
 - Updated ISSUE_IDS list (if supplemental tasks created)
 - Session checkpoint with review results
 
+<gate type="multi-option">
+
 ### Quality Gate
 
 **Advisory gate** - offers to fix gaps, doesn't block arbitrarily:
 
-- Coverage >= 95%: Automatic PASS → EXECUTE
-- Coverage < 95%: User decision required → EXECUTE or ABORT
+- Coverage >= 95%: Automatic PASS -> EXECUTE
+- Coverage < 95%: User decision required -> EXECUTE or ABORT
+
+</gate>
 
 ### Skip Condition
 
@@ -339,7 +381,11 @@ If spec has no explicit acceptance criteria section:
 - Proceed directly to EXECUTE
 - Log warning: "Skipping REVIEW (no AC in spec)"
 
+</step>
+
 ---
+
+<step name="execute">
 
 ## Phase 4: EXECUTE
 
@@ -479,11 +525,19 @@ Execute all implementation tasks with TDD and code review, coordinated directly 
 - Checkpoints saved after each issue
 - PR description updated with progress
 
+<gate type="approve-revise-abort">
+
 ### Quality Gate
 
 All issues complete. If any issue cannot be completed, escalate to user with blocker details and pause session.
 
+</gate>
+
+</step>
+
 ---
+
+<step name="verify">
 
 ## Phase 5: VERIFY
 
@@ -570,6 +624,8 @@ Verify all acceptance criteria met using intelligent extraction (not brittle scr
 - Test results (all passing or failures documented)
 - Git status (clean or uncommitted changes documented)
 
+<gate type="multi-option">
+
 ### Quality Gate & Self-Healing
 
 **Goal**: Achieve >= 95% compliance through autonomous remediation.
@@ -618,9 +674,9 @@ Verify all acceptance criteria met using intelligent extraction (not brittle scr
 
    | Compliance | Behavior                                                              |
    | ---------- | --------------------------------------------------------------------- |
-   | **>= 95%** | ✅ PASS → Document any gaps-fixed in PR, proceed to PUBLISH           |
-   | **90-94%** | ⚠️ PASS WITH WARNINGS → Document minor gaps in PR, proceed to PUBLISH |
-   | **< 90%**  | ❌ FAIL → Escalate to user with detailed gap analysis                 |
+   | **>= 95%** | PASS -> Document any gaps-fixed in PR, proceed to PUBLISH             |
+   | **90-94%** | PASS WITH WARNINGS -> Document minor gaps in PR, proceed to PUBLISH   |
+   | **< 90%**  | FAIL -> Escalate to user with detailed gap analysis                   |
 
 5. **Escalation Format** (if < 90%)
 
@@ -677,7 +733,13 @@ Verify all acceptance criteria met using intelligent extraction (not brittle scr
 - `TEST_EXIT_CODE != 0` - tests failing (cannot proceed)
 - `GIT_CLEAN == false` - uncommitted changes (cannot proceed)
 
+</gate>
+
+</step>
+
 ---
+
+<step name="publish">
 
 ## Phase 6: PUBLISH
 
@@ -702,6 +764,20 @@ Update PR with final summary and mark ready for merge.
    ```markdown
    ## Summary
    ```
+
+</step>
+
+</process>
+
+<success_criteria>
+- [ ] Spec fully read and all requirements understood
+- [ ] Worktree created and verified as clean starting point
+- [ ] All issues from spec created and tracked
+- [ ] Each issue implemented with TDD (tests passing)
+- [ ] Compliance >= 95% verified
+- [ ] PR published and marked ready for review
+- [ ] Session closed cleanly
+</success_criteria>
 
 ## References
 

@@ -41,7 +41,7 @@ phases:
     input:
       spec_reference: "{{spec_reference}}"
     output: review_result
-    requireOutput: false
+    requireOutput: false  # TODO: re-enable after engine fix for result capture (#2413) ships
 
   - name: implement
     skill: implement-plan
@@ -53,11 +53,25 @@ phases:
       in_workflow_worktree: "{{in_workflow_worktree}}"
     output: impl_result
 
+  - name: verify-integration
+    skill: verify-integration
+    # Uses implementer (not a separate verifier agent) because this phase
+    # needs code modification capabilities to remediate wiring gaps and stubs.
+    agent: implementer
+    model: opus
+
+    input:
+      spec_reference: "{{spec_reference}}"
+      in_workflow_worktree: "{{in_workflow_worktree}}"
+    output: verification_result
+    requireOutput: false  # TODO: re-enable after engine fix for result capture (#2413) ships
+
   - name: review-pr
     skill: review-pr
     agent: reviewer
 
     input:
       pr_number: "{{impl_result.prNumber}}"
+      spec_reference: "{{spec_reference}}"
     output: pr_review_result
     requireOutput: false

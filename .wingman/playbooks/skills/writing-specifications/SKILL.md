@@ -3,12 +3,40 @@ name: writing-specifications
 description: Use when creating technical specifications for features, systems, or architectural designs. Creates comprehensive specification documents using the Wingman MCP issue management system with proper structure and completeness checks.
 ---
 
+<purpose>
 You are a specialist at creating comprehensive technical specifications that serve as the authoritative source of truth for implementation. Your job is to gather all necessary information, resolve ambiguities, and produce complete, implementable specifications.
+</purpose>
 
-## Core Responsibilities
+<required_context>
+## Template Reference
 
-## Specification Creation Process
+Reference the full template structure: specification.md (in `.wingman/playbooks/templates/` or builtins)
 
+**Key sections overview:**
+
+1. **Executive Summary** - What, why, scope, status
+2. **Goals and Non-Goals** - What we're solving and explicitly not solving
+3. **Background & Context** - Problem statement, current vs. proposed state
+4. **Requirements** - Functional, non-functional, UX requirements
+5. **Architecture** - High-level design, components, data model, APIs
+6. **Implementation Details** - Tech stack, file structure, algorithms, config
+7. **Security Considerations** - Auth, data protection, threats, compliance
+8. **Error Handling** - Error categories, recovery strategies
+9. **Observability** - Logging, metrics, monitoring, tracing
+10. **Testing Strategy** - Coverage, scenarios, test types
+11. **Deployment** - Strategy, migration path, dependencies
+12. **Performance Characteristics** - Expected performance, scalability
+13. **Open Questions & Decisions** - Resolved decisions, open questions
+14. **Risks & Mitigations** - Identified risks and how to handle them
+15. **Success Criteria** - Launch criteria, success metrics
+16. **Timeline & Milestones** - Key dates and dependencies
+17. **References** - Related specs, issues, external resources
+18. **Appendix** - Glossary, assumptions, constraints
+</required_context>
+
+<process>
+
+<step name="gather-info" priority="first">
 ### 1. Gather Information
 
 Explore the project context to understand the broader scope in which the specification fits. Explore what already exists in the project that the code created from the spec will be integrated.
@@ -28,7 +56,9 @@ Explore the project context to understand the broader scope in which the specifi
 - Unclear technical constraints
 - Undefined success metrics
 - Unspecified integration points
+</step>
 
+<step name="choose-depth">
 ### 2. Choose Specification Depth
 
 **Full Technical Specification (use specification.md structure):**
@@ -45,7 +75,9 @@ Explore the project context to understand the broader scope in which the specifi
 - Internal tools with single owner
 - Proof of concepts
 - Experimental features
+</step>
 
+<step name="structure-content">
 ### 3. Structure the Content
 
 Use the template structure from specification.md (in `.wingman/playbooks/templates/` or builtins) as your guide. Key sections:
@@ -77,7 +109,9 @@ Use the template structure from specification.md (in `.wingman/playbooks/templat
 - Don't include sections that don't apply
 - Don't write "N/A" - just remove the section
 - Focus on what's actually needed
+</step>
 
+<step name="create-spec">
 ### 4. Create the Specification via MCP Tool
 
 Call `issues_create` with `type: "specification"`:
@@ -114,7 +148,9 @@ issues_create({
   }
 })
 ```
+</step>
 
+<step name="checklist">
 ### 5. Specification Checklist
 
 Before creating, verify:
@@ -126,31 +162,9 @@ Before creating, verify:
 - [ ] **Testable:** Requirements are specific enough to write tests against
 - [ ] **Bounded:** Scope is clear, non-goals are explicit
 - [ ] **Justified:** Decisions have rationale, trade-offs are documented
+</step>
 
-## Template Reference
-
-Reference the full template structure: specification.md (in `.wingman/playbooks/templates/` or builtins)
-
-**Key sections overview:**
-
-1. **Executive Summary** - What, why, scope, status
-2. **Goals and Non-Goals** - What we're solving and explicitly not solving
-3. **Background & Context** - Problem statement, current vs. proposed state
-4. **Requirements** - Functional, non-functional, UX requirements
-5. **Architecture** - High-level design, components, data model, APIs
-6. **Implementation Details** - Tech stack, file structure, algorithms, config
-7. **Security Considerations** - Auth, data protection, threats, compliance
-8. **Error Handling** - Error categories, recovery strategies
-9. **Observability** - Logging, metrics, monitoring, tracing
-10. **Testing Strategy** - Coverage, scenarios, test types
-11. **Deployment** - Strategy, migration path, dependencies
-12. **Performance Characteristics** - Expected performance, scalability
-13. **Open Questions & Decisions** - Resolved decisions, open questions
-14. **Risks & Mitigations** - Identified risks and how to handle them
-15. **Success Criteria** - Launch criteria, success metrics
-16. **Timeline & Milestones** - Key dates and dependencies
-17. **References** - Related specs, issues, external resources
-18. **Appendix** - Glossary, assumptions, constraints
+</process>
 
 ## Specification vs. Other Document Types
 
@@ -338,7 +352,7 @@ issues_create({
 
 Copy this checklist to track your progress:
 
-See `assets/workflow-checklist.md` for the complete checklist.
+See \`assets/workflow-checklist.md\` for the complete checklist.
 
 ## References
 
@@ -367,6 +381,15 @@ See `assets/workflow-checklist.md` for the complete checklist.
 });
 ```
 
+<success_criteria>
+- [ ] All must-have specification sections present (Problem, Requirements, Acceptance Criteria)
+- [ ] Acceptance criteria are specific and verifiable — no ambiguous language
+- [ ] `issues_create` called with `type: "specification"` (not `type: "issue"`)
+- [ ] Spec linked to parent initiative or epic if applicable
+- [ ] Implementation plan tasks created as sub-issues if requested
+- [ ] Spec link shared with user for review
+</success_criteria>
+
 ## Best Practices
 
 ### Writing Style
@@ -379,7 +402,7 @@ See `assets/workflow-checklist.md` for the complete checklist.
 
 ### Common Pitfalls to Avoid
 
-❌ **Avoid:**
+**Avoid:**
 
 - Ambiguous requirements ("should be fast", "easy to use")
 - Implementation details without rationale
@@ -388,7 +411,7 @@ See `assets/workflow-checklist.md` for the complete checklist.
 - Assuming knowledge without documenting it
 - Leaving decisions unmarked or implied
 
-✅ **Instead:**
+**Instead:**
 
 - Quantify requirements ("p95 < 500ms", "completion in < 3 clicks")
 - Explain why decisions were made and alternatives considered

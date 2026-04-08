@@ -5,8 +5,7 @@ description: Implements a single issue with TDD, code review, and fix loop. Use 
 
 # Implementing Issue
 
-## Overview
-
+<purpose>
 Implements a single MCP issue with TDD and automated code review. Designed for two use cases:
 
 1. **Standalone** -- user invokes directly for a specific issue
@@ -14,32 +13,48 @@ Implements a single MCP issue with TDD and automated code review. Designed for t
 
 **Entry point:** `/wingman:implementing-issue {ISSUE_ID}`
 
-## When to Use
-
+**When to Use:**
 - Implementing a specific issue (by ID)
 - Invoked directly for standalone work
 - Dispatched as a subagent from implementing-specs
 
-## When NOT to Use
-
+**When NOT to Use:**
 - Implementing a full specification (use implementing-specs)
 - Exploring code (use locating-code)
 - Answering questions (just answer directly)
 
-## Input
-
+**Input:**
 - **Issue ID** (required): e.g., `42` (GitHub provider) or `ISS-000042` (markdown provider)
 - **Working directory context** (optional): defaults to current directory
+</purpose>
 
-## Core Workflow
+<required_context>
 
-### 1. Setup
+## Prerequisites
+
+- Issue ID provided (GitHub issue number or markdown provider ID)
+- MCP tools available: `issues_get` (with `include_body: true`), `issues_update`, `issues_mark_complete`
+- Git repository with clean working tree (or worktree provided by orchestrator)
+- Test runner configured for the project (e.g., `pnpm test`, `npm test`)
+- Skills available: `practicing-tdd`, `requesting-code-review`, `verifying-before-completion`
+
+</required_context>
+
+<process>
+
+<step name="setup" priority="first">
+
+## 1. Setup
 
 1. Read issue via `issues_get` MCP tool (use `include_body: true` to get the full description)
 2. Capture working directory and branch (see `references/working-directory-protocol.md`)
 3. Understand requirements and acceptance criteria from the issue description
 
-### 2. Implementation (TDD)
+</step>
+
+<step name="implementation">
+
+## 2. Implementation (TDD)
 
 Follow the `practicing-tdd` skill strictly:
 
@@ -50,7 +65,42 @@ Follow the `practicing-tdd` skill strictly:
 
 Repeat for each distinct requirement in the issue.
 
-### 3. Code Review
+### Test Authenticity Rule
+
+Tests MUST import and exercise the actual production code path. Never copy production logic into a test file and test the copy. A test that duplicates the implementation it is verifying provides zero regression protection -- when the production code changes, the copied test continues to pass against stale logic.
+
+### Autonomy Boundaries
+
+#### Auto-Fix Tiers
+
+| Tier | Permission | Scope | Examples |
+|------|-----------|-------|----------|
+| 1 | Auto-fix, no ask | Bug fixes in this issue's own code | Typos, off-by-one, missing null checks |
+| 2 | Auto-fix, document | Implied functionality not explicitly listed | Error handling, input validation, missing edge cases |
+| 3 | Auto-fix, document | Blockers in adjacent code | Missing exports, incorrect types, broken imports |
+| 4 | Escalate | Beyond this issue's scope | Architectural changes, shared interface modifications, scope expansion |
+
+For Tier 2-3 fixes, document what was done and why in your completion report.
+
+#### Documenting Deviations
+
+When you make a reasonable simplification that deviates from the spec -- for example, implementing a simpler algorithm, skipping a non-essential feature, or choosing a different approach than specified -- document it explicitly so the verification phase can account for it:
+
+- **In commit messages**: Include `DEVIATION: <rationale>` on its own line explaining what was simplified and why.
+- **In code comments**: Add a comment near the relevant code with the format `// DEVIATION: <rationale>` (or the language-appropriate comment syntax).
+
+This is for intentional, reasoned trade-offs -- not for incomplete work or skipped requirements. The downstream verify-integration skill uses these markers to distinguish deliberate simplifications from gaps.
+
+#### Efficiency Guards
+
+- **Analysis paralysis:** If you perform 5 consecutive read/search operations without writing code or making progress, STOP and report what is blocking you with specific details
+- **Retry limit:** Do not retry the same failing approach more than 3 times -- escalate with the failure details and what you tried
+
+</step>
+
+<step name="code-review">
+
+## 3. Code Review
 
 1. Request code review using `requesting-code-review` skill
 2. Parse feedback into severity categories:
@@ -61,7 +111,11 @@ Repeat for each distinct requirement in the issue.
 
 See `references/code-review-automation.md` for the detailed process.
 
-### 4. Completion
+</step>
+
+<step name="completion">
+
+## 4. Completion
 
 1. Verify all tests pass
 2. Provide TDD Compliance Certification (from practicing-tdd)
@@ -74,6 +128,12 @@ See `references/code-review-automation.md` for the detailed process.
    - Any Minor issues noted for future cleanup
 
 See `references/verification-checklist.md` for the full checklist.
+
+</step>
+
+</process>
+
+<error_handling>
 
 ## Blocker Detection
 
@@ -93,6 +153,8 @@ Only stop for genuine blockers. See `references/blocker-detection.md` for the fu
 - Code review feedback -- auto-fix (2 attempts)
 - Warnings -- document and continue
 
+</error_handling>
+
 ## Anti-Patterns
 
 - Stopping to ask "should I continue?" when not blocked
@@ -100,6 +162,16 @@ Only stop for genuine blockers. See `references/blocker-detection.md` for the fu
 - Proceeding with failing tests
 - Skipping code review
 - Fixing Minor issues instead of documenting them
+
+<success_criteria>
+- [ ] Issue requirements fully read and understood
+- [ ] Tests written first (TDD: RED phase confirmed)
+- [ ] Implementation makes tests pass (GREEN phase)
+- [ ] Code refactored as needed (REFACTOR phase)
+- [ ] `verifying-before-completion` skill run — all checks pass
+- [ ] Work committed with clear conventional commit message
+- [ ] PR or review requested if required by project workflow
+</success_criteria>
 
 ## Integration with Other Skills
 

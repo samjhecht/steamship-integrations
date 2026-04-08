@@ -10,9 +10,11 @@ Specification: {{spec_reference}}
 Issue IDs to review: {{issue_ids}}
 {{/if}}
 
-# Review Plan
-
+<purpose>
 Review a plan, specification, or GitHub issue for completeness, feasibility, task scoping, and missing considerations. Dispatches a single reviewer subagent with codebase access to verify that referenced files, packages, and APIs actually exist.
+</purpose>
+
+<required_context>
 
 ## Arguments
 
@@ -21,6 +23,28 @@ Review a plan, specification, or GitHub issue for completeness, feasibility, tas
   - A GitHub issue number (e.g., `#42`) or full URL
   - A file path to a markdown document
   - Empty -- search the current conversation context for a plan or spec
+
+## MCP Tools
+
+| Tool | Purpose |
+|------|---------|
+| `issues_get` | Fetch plan/spec content by ID (with `include_body: true`) |
+| `issues_list` | List related issues for context |
+| `issues_create` | Create follow-up issues from findings |
+
+</required_context>
+
+<available_agent_types>
+
+| Agent | Purpose |
+|-------|---------|
+| plan-reviewer | Reviews a plan, spec, or issue for completeness, feasibility, task scoping, and missing considerations. Requires codebase access (Read, Glob, Grep, Bash). |
+
+</available_agent_types>
+
+<process>
+
+<step name="resolve-input" priority="first">
 
 ## Phase 1: Resolve Input
 
@@ -48,6 +72,10 @@ Check the identifier against these patterns, in order:
 Confirm you have substantive content to review. If the fetched content is empty or trivially short (fewer than 3 sentences), inform the user and stop.
 
 Store the resolved content as `{PLAN_CONTENT}` and the identifier (or a short descriptive label) as `{PLAN_IDENTIFIER}`.
+
+</step>
+
+<step name="dispatch-reviewer">
 
 ## Phase 2: Dispatch Reviewer
 
@@ -104,6 +132,10 @@ Use the Agent tool to dispatch a single reviewer subagent with the assembled pro
 
 Wait for the subagent to complete and capture its full response as `{REVIEWER_OUTPUT}`.
 
+</step>
+
+<step name="present-findings">
+
 ## Phase 3: Present Findings
 
 Format the reviewer output into a structured report and present it to the user.
@@ -133,16 +165,53 @@ Transform the reviewer output into this format:
 - **Unverifiable**: [List external systems or services that could not be checked]
 ```
 
-Verdict rules:
+### Verdict Rules
+
 - **PASS**: Zero critical findings and two or fewer warnings
 - **NEEDS REVISION**: Any critical findings, or three or more warnings
 
 If the reviewer found no issues at all, the Findings table, Missing Considerations, and Feasibility Assessment sections can be replaced with a single line: "No issues found."
 
-### Step 2: Offer follow-up
+### Step 2: Handle Verdict
 
-After presenting the report, ask the user:
+#### Auto-Remediation
 
-> Would you like me to create issues for any of these findings?
+When the verdict is NEEDS REVISION:
 
-If the user says yes, use the `issues_create` MCP tool to create one issue per finding (or group of related findings) that the user selects. Tag each issue with a reference back to `{PLAN_IDENTIFIER}`.
+Auto-remediation targets **coverage gaps** (uncovered sub-requirements). Other critical findings (feasibility, architectural concerns) cannot be auto-remediated and should be included in the escalation report if they persist.
+
+**Remediation (max 1 iteration):**
+
+1. Read the gap list from the review findings (critical findings about uncovered sub-requirements)
+2. For each uncovered sub-requirement:
+   - Create a new task issue via `issues_create` with:
+     - Title: "Task N+1: Cover [sub-requirement description]"
+     - Description: Standard issue template with file paths, implementation details
+     - Labels: `["plan-step", "implementation", "auto-remediation"]`
+     - `governanceContext.parentTaskId`: the spec ID
+   - Call `issues_set_parent` to link it to the spec
+3. **Verify task coverage** (do NOT re-dispatch the full reviewer): For each sub-requirement from the gap list, confirm that a task issue now exists that covers it. Use `issues_list` with the spec as parent to enumerate existing tasks and match them against the gap list. This is a simple existence check, not a full re-review.
+4. If all gaps have corresponding tasks: update verdict to PASS and proceed
+5. If any gap lacks a corresponding task (e.g., `issues_create` failed): escalate with a detailed gap report
+
+**Escalation format:**
+```
+Auto-Remediation Incomplete
+Remaining gaps without tasks: [list of uncovered sub-requirements]
+Tasks created: [list of auto-remediated task IDs]
+Action required: Manual creation of missing tasks
+```
+
+</step>
+
+</process>
+
+<success_criteria>
+- [ ] Plan/spec identifier resolved and content fetched successfully
+- [ ] Reviewer subagent dispatched with correct prompt (preamble + review prompt + plan content)
+- [ ] Reviewer output parsed into structured findings table
+- [ ] Verdict assigned correctly based on severity counts (PASS vs NEEDS REVISION)
+- [ ] Feasibility assessment includes verified and unverifiable items
+- [ ] Auto-remediation creates gap-filling tasks when verdict is NEEDS REVISION
+- [ ] Task coverage verified via existence check (not full re-review)
+</success_criteria>

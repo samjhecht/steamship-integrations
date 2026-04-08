@@ -5,26 +5,29 @@ description: Launches workflow engine runs in the background, monitors progress 
 
 # Running Workflows
 
-## Purpose
-
+<purpose>
 Standardized way to launch the workflow engine, background it, and monitor progress. Keeps the main conversation available while workflows run.
 
-## When to Use
-
+**When to Use:**
 - User asks to "run a workflow", "implement a spec", or "execute construyelo"
 - You need to invoke the workflow engine
 - Monitoring a running or paused workflow
 
-## When NOT to Use
-
+**When NOT to Use:**
 - Implementing a single issue (use implementing-issue)
 - Writing plans without execution (use writing-plans)
+</purpose>
 
-## 0. Discovering Available Workflows
+<required_context>
+## Discovering Available Workflows
 
 Use `workflow_list` to see available workflows and their descriptions. Use `workflow_get({ name: 'workflow-name' })` to inspect a workflow's phases and configuration before running it.
+</required_context>
 
-## 1. Launching a Workflow
+<process>
+
+<step name="launch" priority="first">
+## Launching a Workflow
 
 ### Via MCP Tool (Preferred)
 
@@ -81,7 +84,9 @@ After launching, immediately tell the user:
 - The workflow is running in the background
 - The session ID (from initial output)
 - How to check status: "Ask me anytime for a progress update"
+</step>
 
+<step name="notifications">
 ## Automatic Completion Notifications
 
 The workflow engine automatically delivers status notifications when a workflow completes, fails, or pauses. You do not need to poll for completion.
@@ -109,8 +114,10 @@ The workflow engine automatically delivers status notifications when a workflow 
 - For pauses: include the blocker description and offer to resume
 
 **Fallback:** If notifications are not delivered (e.g., hooks not configured), use `session_status({})` to check manually.
+</step>
 
-## 2. Checking Progress
+<step name="check-progress">
+## Checking Progress
 
 ### MCP Tool (Preferred)
 
@@ -196,8 +203,10 @@ Running for: 12 minutes
 
 The workflow is working in an isolated worktree at .worktrees/feature-name/.
 ```
+</step>
 
-## 3. Handling Completion
+<step name="handle-completion">
+## Handling Completion
 
 When the workflow finishes, you will typically be notified automatically via the PostToolUse or Stop hooks (see "Automatic Completion Notifications" above). If you need to check manually:
 
@@ -219,14 +228,27 @@ When the workflow finishes, you will typically be notified automatically via the
 - Read the last audit entries for error context
 - Report the failure to user
 - Suggest debugging steps
+</step>
 
-## 4. Resuming Paused Workflows
+<step name="resume">
+## Resuming Paused Workflows
 
 ```
 workflow_run({ workflow: "<workflow-name>", resume: "<session-id>" })
 ```
 
 The engine picks up from the last checkpoint, skipping completed phases and tasks.
+</step>
+
+</process>
+
+<success_criteria>
+- [ ] Workflow launched successfully (no startup errors)
+- [ ] Session ID captured and reported to user
+- [ ] User informed of how to check workflow status
+- [ ] Completion notification received and reported when workflow finishes
+- [ ] Failure or pause conditions reported with actionable details
+</success_criteria>
 
 ## Workflow Phases Reference
 

@@ -5,30 +5,31 @@ description: Develops project constitutional principles through Socratic questio
 
 # Project Constitution Development
 
-## Purpose
+<purpose>
+Create constitutional principles so clear that both AI and human can independently evaluate feature alignment and reach the same conclusion. The project constitution serves as "supreme law" -- a clear, unambiguous statement of core design values, decision-making frameworks, concrete alignment examples, and amendment processes.
+</purpose>
 
-The project defining-constitution serves as "supreme law" - a clear, unambiguous statement of:
-- Core design values and non-negotiables
-- Decision-making frameworks
-- Concrete examples of good and bad alignment
-- Amendment processes for principled evolution
+<required_context>
+This skill operates in four modes:
 
-**Goal**: Create constitutional principles so clear that both AI and human can independently evaluate feature alignment and reach the same conclusion.
+1. **Constitution Creation** -- When helping user create new constitution from scratch, use the `initializing-governance` skill instead (it includes constitution creation as part of full setup).
+2. **Constitution Refinement** -- When user has existing constitution needing improvement (analyze for ambiguity, missing examples, conflicts).
+3. **Clarity Refinement (Socratic Process)** -- Systematically eliminate all ambiguity through structured questioning. This is the primary value-add. Invoked with phrases like "Refine the clarity of our constitution", "Help me make Principle 3 clearer", "Remove ambiguity from our design principles".
+4. **Constitutional Amendments** -- When user proposes changes to existing principles.
+</required_context>
 
-## Core Responsibilities
+<process>
 
-### 1. Constitution Creation
+<step name="analyze-constitution">
 
-When helping user create new defining-constitution from scratch, use the `initializing-governance` skill instead (it includes defining-constitution creation as part of full setup).
+## Constitution Refinement
 
-### 2. Constitution Refinement
-
-When user has existing defining-constitution needing improvement:
+When user has existing constitution needing improvement:
 
 **Read Current Constitution**:
 ```bash
 # Read existing file
-cat .wingman/CONSTITUTION.md
+cat .wingman/config/CONSTITUTION.md
 ```
 
 **Analyze for Issues**:
@@ -60,42 +61,11 @@ cat .wingman/CONSTITUTION.md
 #### Conflicts
 - Principle X conflicts with Principle Y when [scenario]
 ```
+</step>
 
-### 3. Clarity Refinement (Socratic Process)
+<step name="identify-ambiguities" priority="first">
 
-**THIS IS YOUR PRIMARY VALUE-ADD**: Systematically eliminate all ambiguity through structured questioning.
-
-**Invocation**: User can invoke this directly with phrases like:
-- "Refine the clarity of our defining-constitution"
-- "Help me make Principle 3 clearer"
-- "Remove ambiguity from our design principles"
-
-**Process**: Use the integrated clarity refinement workflow below.
-
-### 4. Constitutional Amendments
-
-When user proposes changes to existing principles:
-
-**Amendment Process** (from defining-constitution template):
-1. **Proposal**: Create issue with `constitutional-amendment` label
-2. **Justification**: Document why amendment needed
-3. **Impact Analysis**: Identify all affected code/specs
-4. **Approval**: User decides
-5. **Implementation**: Update defining-constitution, increment version
-6. **Communication**: Update roadmap changelog
-7. **Migration**: Update code/docs to reflect new principle
-
-**Your Role**:
-- Help user articulate amendment clearly
-- Identify impact on existing specifications and code
-- Update defining-constitution file with proper versioning
-- Create amendment proposal issue for tracking
-
-## Clarity Refinement Workflow
-
-This is the core value of the defining-constitution skill - systematic ambiguity removal.
-
-### Phase 1: Identify Ambiguities
+## Phase 1: Identify Ambiguities
 
 **Scan for Common Ambiguity Patterns**:
 
@@ -119,8 +89,11 @@ This is the core value of the defining-constitution skill - systematic ambiguity
 **Conflicting Principles**:
 - "Move fast" vs "High quality" - Which wins when they conflict?
 - "Simple" vs "Feature-rich" - Where's the line?
+</step>
 
-### Phase 2: Socratic Questioning
+<step name="socratic-questioning">
+
+## Phase 2: Socratic Questioning
 
 For EACH ambiguity identified, ask structured questions to force specificity:
 
@@ -149,8 +122,11 @@ For EACH ambiguity identified, ask structured questions to force specificity:
 2. "What's the hierarchy - which is more important?"
 3. "How do we decide when to compromise each one?"
 4. "Can you reword to eliminate the conflict?"
+</step>
 
-### Phase 3: Extract Concrete Specifications
+<step name="extract-specifications">
+
+## Phase 3: Extract Concrete Specifications
 
 From user's answers, derive concrete, verifiable criteria:
 
@@ -168,13 +144,13 @@ From user's answers, derive concrete, verifiable criteria:
 - Every function has single, obvious purpose
 
 **Anti-patterns**:
-- ❌ Combining multiple operations in single expression for brevity
-- ❌ Using abbreviations or domain jargon without comments
-- ❌ Functions that do "and also" (multiple responsibilities)
+- Combining multiple operations in single expression for brevity
+- Using abbreviations or domain jargon without comments
+- Functions that do "and also" (multiple responsibilities)
 
 **Examples**:
-- ✅ **Good**: `getUserByEmail(email)` with clear early returns
-- ❌ **Bad**: `getUsr(e)` with nested if-else chains
+- GOOD: `getUserByEmail(email)` with clear early returns
+- BAD: `getUsr(e)` with nested if-else chains
 ```
 
 **Before**: "System should be scalable"
@@ -189,16 +165,19 @@ From user's answers, derive concrete, verifiable criteria:
 - Accept tech debt to ship, pay it down when load demands
 
 **Anti-patterns**:
-- ❌ Adding caching/sharding before measuring need
-- ❌ Choosing distributed systems for <1M users
-- ❌ Optimizing code paths with no evidence of bottleneck
+- Adding caching/sharding before measuring need
+- Choosing distributed systems for <1M users
+- Optimizing code paths with no evidence of bottleneck
 
 **Examples**:
-- ✅ **Good**: Started with single Postgres, added read replicas at 100K users
-- ❌ **Bad**: Used microservices from day 1 for 100 user MVP
+- GOOD: Started with single Postgres, added read replicas at 100K users
+- BAD: Used microservices from day 1 for 100 user MVP
 ```
+</step>
 
-### Phase 4: Document Decision Framework
+<step name="decision-framework">
+
+## Phase 4: Document Decision Framework
 
 After refining principles, ensure decision framework exists:
 
@@ -213,8 +192,11 @@ After refining principles, ensure decision framework exists:
 - Add project-specific questions if needed
 - Define what "yes" means for each question
 - Give examples of features that failed each question
+</step>
 
-### Phase 5: Validate with Scenarios
+<step name="validate-scenarios">
+
+## Phase 5: Validate with Scenarios
 
 **Test Refined Constitution** against real or hypothetical features:
 
@@ -224,9 +206,12 @@ After refining principles, ensure decision framework exists:
 3. You independently apply principles and decide
 4. Compare answers
 
-**If answers differ**: Constitution still has ambiguity - return to Phase 2
+<gate type="yes-no">
+**Do answers align between you and the user?**
 
-**If answers align**: Constitution is concrete enough
+- **If answers differ**: Constitution still has ambiguity -- return to the `socratic-questioning` step.
+- **If answers align**: Constitution is concrete enough -- proceed.
+</gate>
 
 **Example Scenarios**:
 
@@ -241,27 +226,9 @@ After refining principles, ensure decision framework exists:
 - User's answer: [Yes/No with reasoning]
 
 **Goal**: Both you and user reach same conclusion using only the written principles.
+</step>
 
-## Working with Constitutional Ambiguity
-
-### Red Flags (Trigger Refinement)
-
-If you see ANY of these in a principle, invoke clarity refinement:
-
-- **Abstract quality words**: "clean", "simple", "elegant", "robust"
-- **No examples**: Principle has no Good/Bad examples
-- **No anti-patterns**: Doesn't say what NOT to do
-- **"Should" without criteria**: "Code should be fast" (how fast?)
-- **Dependent on judgment**: Requires human to interpret
-- **Conflicts with others**: Contradicts another principle
-- **Can't be checked**: No way to verify compliance
-
-### Clarity Heuristic
-
-**Test**: Can a new LLM, given ONLY the defining-constitution (no conversation history), evaluate a feature request and reach the same conclusion as you and the user?
-
-**If NO**: Constitution needs refinement.
-**If YES**: Constitution is concrete enough.
+<step name="amendment">
 
 ## Constitutional Amendment Process
 
@@ -323,12 +290,12 @@ Wait for user to explicitly approve amendment.
 
 ### 3. Update Constitution File
 
-Once approved, update `.wingman/CONSTITUTION.md`:
+Once approved, update `.wingman/config/CONSTITUTION.md`:
 
 **Version increment**:
-- Major version (1.0.0 → 2.0.0): New principle added or principle removed
-- Minor version (1.0.0 → 1.1.0): Existing principle modified
-- Patch version (1.0.0 → 1.0.1): Clarification or example added
+- Major version (1.0.0 -> 2.0.0): New principle added or principle removed
+- Minor version (1.0.0 -> 1.1.0): Existing principle modified
+- Patch version (1.0.0 -> 1.0.1): Clarification or example added
 
 **Update sections**:
 - Increment version number in frontmatter
@@ -347,7 +314,7 @@ Once approved, update `.wingman/CONSTITUTION.md`:
 ### Version History
 
 - **1.1.0** (2024-11-18): Modified Principle 2 (Simplicity) to add concrete example about microservices
-- **1.0.0** (2024-10-01): Initial defining-constitution ratified
+- **1.0.0** (2024-10-01): Initial constitution ratified
 ```
 
 ### 4. Update Roadmap Changelog
@@ -369,7 +336,7 @@ Search for specifications that might conflict:
 # Search specs for mentions of modified principle
 grep -r "Principle [N]" .wingman/specifications/*.md
 grep -r "[principle keyword]" .wingman/specifications/*.md
-grep -r "[principle keyword]" .wingman/CONSTITUTION.md
+grep -r "[principle keyword]" .wingman/config/CONSTITUTION.md
 ```
 
 Review each affected spec and propose updates if needed.
@@ -385,7 +352,7 @@ Mark amendment issue as closed with summary:
 **Date**: [YYYY-MM-DD]
 
 **Changes Made**:
-- Updated Principle [N] in .wingman/CONSTITUTION.md
+- Updated Principle [N] in .wingman/config/CONSTITUTION.md
 - Version incremented to [X.Y.Z]
 - Roadmap changelog updated
 - [List any spec updates made]
@@ -397,30 +364,48 @@ Mark amendment issue as closed with summary:
 
 Amendment is now in effect.
 ```
+</step>
 
-## Best Practices
+</process>
 
-### Writing Principles
+## Working with Constitutional Ambiguity
 
-**DO**:
-- Use concrete, measurable criteria
-- Include specific examples (good AND bad)
-- Document anti-patterns explicitly
-- Keep under 150 lines total (context limits)
-- Reference real scenarios from project
-- Make principles actionable (can check compliance)
+### Red Flags (Trigger Refinement)
 
-**DON'T**:
-- Use vague quality words without definition
-- Write abstract philosophy
-- Create principles you can't verify
-- Make >10 principles (too many to remember)
-- Write what you "should" do without explaining how to check
-- Leave room for interpretation
+If you see ANY of these in a principle, invoke clarity refinement:
 
-### Constitutional Conflicts
+- **Abstract quality words**: "clean", "simple", "elegant", "robust"
+- **No examples**: Principle has no Good/Bad examples
+- **No anti-patterns**: Doesn't say what NOT to do
+- **"Should" without criteria**: "Code should be fast" (how fast?)
+- **Dependent on judgment**: Requires human to interpret
+- **Conflicts with others**: Contradicts another principle
+- **Can't be checked**: No way to verify compliance
 
-When principles conflict (e.g., "Move Fast" vs "High Quality"):
+### Clarity Heuristic
+
+**Test**: Can a new LLM, given ONLY the constitution (no conversation history), evaluate a feature request and reach the same conclusion as you and the user?
+
+**If NO**: Constitution needs refinement.
+**If YES**: Constitution is concrete enough.
+
+<success_criteria>
+- All principles use concrete, measurable criteria
+- Every principle includes specific examples (good AND bad)
+- Anti-patterns are documented explicitly
+- Constitution is under 150 lines total (context limits)
+- Principles reference real scenarios from the project
+- All principles are actionable (compliance can be checked)
+- No vague quality words without definition
+- No abstract philosophy
+- No more than 10 principles (too many to remember)
+- Every "should" statement explains how to check compliance
+- No room for interpretation remains
+- When principles conflict, resolution is explicit (hierarchy or rewrite)
+</success_criteria>
+
+<error_handling>
+**Constitutional Conflicts**: When principles conflict (e.g., "Move Fast" vs "High Quality"):
 
 **Option 1 - Hierarchy**: Explicitly rank principles
 ```markdown
@@ -444,10 +429,7 @@ When principles conflict, apply in this order:
 - Ship fast with tech debt, pay it down when velocity slows
 - Quality in external APIs and data models, pragmatic in internals
 ```
-
-### Testing Constitutional Clarity
-
-**Validation Checklist**:
+</error_handling>
 
 ## References
 

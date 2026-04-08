@@ -10,10 +10,7 @@ description: Use when design is complete and you need detailed implementation ta
 Specification to plan: {{spec_reference}}
 {{/if}}
 
-# Writing Plans
-
-## Overview
-
+<purpose>
 Write comprehensive implementation plans assuming the engineer has zero context for our codebase. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
 **MCP issues are the source of truth** - each tracked task contains complete implementation details.
@@ -26,8 +23,6 @@ Optionally create:
 
 **Headless mode:** If run as subagent, do not stop to ask for feedback during execution.
 
-## Bite-Sized Task Granularity
-
 **Each step is one action (2-5 minutes):**
 
 - "Write the failing test" - step
@@ -35,7 +30,9 @@ Optionally create:
 - "Implement the minimal code to make the test pass" - step
 - "Run the tests and make sure they pass" - step
 - "Commit" - step
+</purpose>
 
+<required_context>
 ## Plan Document (Reference Only)
 
 Plan documents capture architecture/design context when the implementation involves multiple interconnected steps/issues. Plans are appended as a section at the bottom of the spec issue, keeping everything in one discoverable place.
@@ -86,25 +83,27 @@ Use this template for the plan section content:
 
 ## Acceptance Criteria Coverage
 
-### Spec Acceptance Criteria
+### Sub-Requirement Decomposition
 
 - AC-001: [description]
+  - SR-001a: [clause 1]
+  - SR-001b: [clause 2]
 - AC-002: [description]
-  ...
+  - SR-002a: [clause 1]
 
-### Task-to-AC Mapping
+### Task-to-Sub-Requirement Mapping
 
-| Task ID | Satisfies AC   | Estimated Compliance Contribution |
-| ------- | -------------- | --------------------------------- |
-| ISS-001 | AC-001, AC-003 | 15%                               |
-| ISS-002 | AC-002         | 10%                               |
+| Task ID | Satisfies Sub-Requirements | Uncovered Sub-Requirements |
+| ------- | ------------------------- | -------------------------- |
+| ISS-001 | SR-001a, SR-003a          | (none)                     |
+| ISS-002 | SR-002a                   | SR-002b (needs task)       |
 
 ### Coverage Summary
 
-- Total AC: 15
-- AC covered by tasks: 14 (93%)
-- AC with no implementing tasks: AC-012
-- Estimated post-execution compliance: 93%
+- Total sub-requirements: 22
+- Covered by tasks: 21 (95%)
+- Uncovered: SR-002b (deferred: [rationale])
+- Estimated post-execution compliance: 95%
 
 ### Risk Areas
 
@@ -127,6 +126,7 @@ End the appended plan section with a summary line:
 **Issues created:** [N] tasks in project [spec reference]
 **Estimated compliance:** [X]% (based on task-to-AC mapping)
 ```
+</required_context>
 
 ## MCP Issue Content Requirements
 
@@ -136,6 +136,7 @@ End the appended plan section with a summary line:
 - Complete code examples (not "add validation")
 - Exact commands with expected output
 - All 5 TDD steps (write test, verify fails, implementing-issue, verify passes, commit)
+- Test code that imports production modules (never copies production logic inline)
 - Clear acceptance criteria
 - Dependencies on other tasks
 
@@ -154,8 +155,8 @@ End the appended plan section with a summary line:
 - Reference relevant skills with @ syntax
 - DRY, YAGNI, TDD, frequent commits
 
-## Planning Process
-
+<process>
+<step name="analyze" priority="first">
 ### Phase 1: Read and Analyze Specification
 
 1. Read the specification file completely
@@ -178,7 +179,9 @@ End the appended plan section with a summary line:
    Store as structured list for task mapping in Phase 2.
 
    **Note:** If spec has no explicit acceptance criteria, note this for later phases.
+</step>
 
+<step name="breakdown">
 ### Phase 2: Plan Task Breakdown
 
 1. Break specification into logical tasks
@@ -198,20 +201,55 @@ End the appended plan section with a summary line:
 3. Review and refine task breakdown
 4. Ensure tasks are right-sized and ordered correctly
 
-5. **Map tasks to acceptance criteria**
+5. **Decompose acceptance criteria into atomic sub-requirements**
 
-   For each task, determine which acceptance criteria it satisfies:
-   - Analyze task description and implementation scope
-   - Identify which AC are fully/partially addressed
-   - Calculate estimated compliance contribution per task
-   - Flag any AC with no implementing tasks
+   For each acceptance criterion from Phase 1:
+   - Extract every distinct clause, condition, and artifact using spec text verbatim
+   - Each sub-requirement must be individually testable/verifiable
+   - Label as SR-{AC#}{letter} (e.g., SR-001a, SR-001b)
+   - A single AC with "MUST do X AND Y" becomes two sub-requirements
 
-   This mapping will be used to:
-   - Generate coverage report in plan section (if created)
-   - Enable REVIEW phase validation in implementing-specs workflow
+   Example:
+   - AC-001: "The system MUST create a factory AND register it with the container"
+     - SR-001a: "The system MUST create a factory"
+     - SR-001b: "The system MUST register [the factory] with the container"
 
-6. Optionally draft plan section for architecture overview (if needed)
+6. **Map tasks to sub-requirements**
 
+   For each task, determine which sub-requirements it satisfies:
+   - Map to specific sub-requirements (not top-level ACs)
+   - Flag any sub-requirement with no implementing task
+
+7. **Validate sub-requirement coverage**
+
+   If any sub-requirement has no implementing task, the planner MUST either:
+   - Create a task for it, OR
+   - Explicitly document why it is intentionally deferred with rationale
+
+   Zero uncovered sub-requirements without documented rationale is the target.
+
+8. Optionally draft plan section for architecture overview (if needed)
+
+### Integration Mandate
+
+Any task that creates a module, service, factory, utility, or context MUST include an **Integration Points** section in its issue description:
+
+```
+## Integration Points
+- Consumed by: `path/to/consumer1.ts` (Task N)
+- Consumed by: `path/to/consumer2.ts` (Task M)
+- **Completion gate:** Infrastructure without consumers is not a valid task completion state.
+  The implementing agent MUST verify at least one consumer imports and uses the artifact before
+  marking this task complete.
+```
+
+Rules:
+- If integration requires changes in a different task, document the dependency in BOTH tasks
+- If no other task integrates the artifact, the creating task's acceptance criteria MUST include at least one consumer integration
+- The enforcement line ("Infrastructure without consumers is not a valid task completion state") MUST appear verbatim inside the Integration Points section of the task description -- not just as a planner rule, but as inline guidance the implementing agent will see
+</step>
+
+<step name="create-issues">
 ### Phase 3: Create MCP Issues (Source of Truth)
 
 **Before creating issues, check for an existing plan:**
@@ -245,6 +283,14 @@ Reference: Spec #{SPEC_ID}
 - Create: \`path/to/new/file.ts\`
 - Modify: \`path/to/existing.ts:45-67\`
 - Test: \`path/to/test.ts\`
+
+## Integration Points
+- Consumed by: \`path/to/consumer.ts\` (Task [M])
+- If standalone: acceptance criteria include consumer integration
+- **Completion gate:** Infrastructure without consumers is not a valid task completion state. The implementing agent MUST verify at least one consumer imports and uses the artifact before marking this task complete.
+
+## Testing
+Tests MUST import and exercise actual production code paths. Never copy production logic into test files -- always import the real module under test.
 
 ## Implementation
 
@@ -317,7 +363,9 @@ issues_set_parent({ issueId: issue.id, parentId: "{SPEC_ID}" });
 - Always set `parentTaskId` AND call `issues_set_parent` for every issue -- both are required
 - Use `issues_update` if you need to refine an issue after creation (don't create duplicates)
 - If creating optional plan section, it should reference issues, NOT duplicate their content
+</step>
 
+<step name="verify">
 ### Phase 4: Verify and Report
 
 1. Use `issues_list` filtered by `parentTaskId: "{SPEC_ID}"` to verify all issues created and linked
@@ -327,6 +375,8 @@ issues_set_parent({ issueId: issue.id, parentId: "{SPEC_ID}" });
    - No duplicates or gaps
    - Task sizes are appropriate
 3. Make any necessary adjustments using `issues_update`
+</step>
+</process>
 
 ## Execution Handoff
 
@@ -352,8 +402,7 @@ issues_update({
 });
 ```
 
-## Checklist Before Completion
-
+<success_criteria>
 - [ ] Specification fully read and analyzed
 - [ ] Existing codebase reviewed for patterns
 - [ ] Task breakdown created and refined
@@ -365,6 +414,7 @@ issues_update({
 - [ ] No gaps in implementation steps
 - [ ] Optional plan section appended to spec issue (if architecture context needed)
 - [ ] Plan covers entire specification without overscoping
+</success_criteria>
 
 ## Integration with Specifications
 

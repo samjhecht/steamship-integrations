@@ -31,7 +31,7 @@ Invoke this skill:
 **Load constitutional principles:**
 
 ```bash
-cat .wingman/CONSTITUTION.md
+cat .wingman/config/CONSTITUTION.md
 ```
 
 **Extract key information:**

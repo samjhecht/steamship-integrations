@@ -5,16 +5,18 @@ description: Initializes complete governance framework including constitution, r
 
 # Initialize Governance Framework
 
-## Purpose
-
-This skill creates the three-tier governance hierarchy:
+<purpose>
+Creates the three-tier governance hierarchy:
 1. **Constitution** (`CONSTITUTION.md`) - Immutable design principles
 2. **Roadmap** (`ROADMAP.md`) - Strategic + tactical plans
 3. **Process Documentation** (README files) - Operational guidance
+</purpose>
 
-## Initialization Process
+<process>
 
-### Phase 1: Discovery and Planning
+<step name="discovery" priority="first">
+
+## Phase 1: Discovery and Planning
 
 **1. Detect Project Structure**
 
@@ -28,11 +30,13 @@ git rev-parse --show-toplevel
 ls -la .wingman/ 2>/dev/null || echo "No .wingman directory"
 
 # Check for existing governance docs
-[ -f .wingman/CONSTITUTION.md ] && echo "Constitution exists" || echo "No defining-constitution"
+[ -f .wingman/config/CONSTITUTION.md ] && echo "Constitution exists" || echo "No defining-constitution"
 [ -f .wingman/ROADMAP.md ] && echo "Roadmap exists" || echo "No roadmap"
 ```
 
 **2. Ask User for Project Context**
+
+<gate type="multi-option">
 
 Use AskUserQuestion to gather essential information:
 
@@ -71,6 +75,8 @@ AskUserQuestion({
   ]
 })
 ```
+
+</gate>
 
 **3. Create Directory Structure**
 
@@ -126,7 +132,11 @@ This will:
 
 Users can reconfigure later with `/wingman:updating-git-hooks` command.
 
-### Phase 2: Constitution Creation
+</step>
+
+<step name="constitution">
+
+## Phase 2: Constitution Creation
 
 **If user has existing principles**: Use the `defining-constitution` skill (invoke with Skill tool) to help them refine and formalize.
 
@@ -156,12 +166,12 @@ For each core value, help user formulate as concrete principle:
 - [Specific application 3]
 
 **Anti-patterns** (What NOT to do):
-- ❌ [Anti-pattern 1 with explanation]
-- ❌ [Anti-pattern 2 with explanation]
+- [Anti-pattern 1 with explanation]
+- [Anti-pattern 2 with explanation]
 
 **Examples**:
-- ✅ **Good**: [Concrete example showing principle in action]
-- ❌ **Bad**: [Concrete example violating principle]
+- **Good**: [Concrete example showing principle in action]
+- **Bad**: [Concrete example violating principle]
 ```
 
 **3. Write Constitution File**
@@ -170,7 +180,7 @@ Use the constitution template from `.wingman/playbooks/templates/` or builtins:
 
 ```bash
 # Copy template (if not using the skill to generate it)
-cp .wingman/playbooks/templates/constitution.md .wingman/CONSTITUTION.md
+cp .wingman/playbooks/templates/constitution.md .wingman/config/CONSTITUTION.md
 ```
 
 Then use Edit tool to fill in:
@@ -181,9 +191,15 @@ Then use Edit tool to fill in:
 - Decision framework (can use default)
 - Amendment process (can use default)
 
-### Phase 3: Roadmap Creation
+</step>
+
+<step name="roadmap">
+
+## Phase 3: Roadmap Creation
 
 **1. Gather Roadmap Information**
+
+<gate type="multi-option">
 
 Ask user about phases and goals:
 
@@ -203,6 +219,8 @@ AskUserQuestion({
   ]
 })
 ```
+
+</gate>
 
 **2. For Each Phase, Gather Details**
 
@@ -231,7 +249,11 @@ Fill in with Edit tool:
 - Each phase with timeline, goal, features, success metrics
 - Link to defining-constitution principles
 
-### Phase 4: Process Documentation
+</step>
+
+<step name="process-docs">
+
+## Phase 4: Process Documentation
 
 **1. Create Issues README**
 
@@ -254,7 +276,11 @@ Use Edit tool to:
 
 **Note**: Templates are provisioned to `.wingman/playbooks/templates/` during workspace initialization from agent-core builtins. User customizations in that directory are preserved.
 
-### Phase 5: Integration and Verification
+</step>
+
+<step name="verification">
+
+## Phase 5: Integration and Verification
 
 **1. Update Project CLAUDE.md**
 
@@ -266,7 +292,7 @@ If `CLAUDE.md` exists in project root, add governance section:
 This project uses a three-tier governance framework:
 
 ### Tier 1: Constitution (Immutable Principles)
-**File**: `.wingman/CONSTITUTION.md`
+**File**: `.wingman/config/CONSTITUTION.md`
 
 Supreme law of the project. All features and decisions must align with constitutional principles.
 
@@ -296,7 +322,7 @@ Run verification:
 ```bash
 # List all governance files
 echo "=== Governance Files ==="
-ls -lh .wingman/CONSTITUTION.md
+ls -lh .wingman/config/CONSTITUTION.md
 ls -lh .wingman/ROADMAP.md
 ls -lh .wingman/specifications/README.md
 ls -lh .wingman/issues/README.md
@@ -319,7 +345,7 @@ This project now has a complete governance framework to ensure alignment between
 
 ### Key Documents
 
-**Constitution** (\`.wingman/CONSTITUTION.md\`)
+**Constitution** (\`.wingman/config/CONSTITUTION.md\`)
 - Immutable design principles
 - Decision framework
 - Amendment process
@@ -360,7 +386,11 @@ Close this issue once you've reviewed all governance documents.
 })
 ```
 
-### Phase 6: User Handoff
+</step>
+
+<step name="handoff">
+
+## Phase 6: User Handoff
 
 **Provide Summary to User**
 
@@ -391,7 +421,7 @@ Your project now has a complete governance system ensuring we stay aligned on:
 
 ### Next Steps
 
-1. **Review Constitution**: Read `.wingman/CONSTITUTION.md`
+1. **Review Constitution**: Read `.wingman/config/CONSTITUTION.md`
    - Verify principles match your vision
    - Use `defining-constitution` skill if refinement needed
 
@@ -403,6 +433,21 @@ Your project now has a complete governance system ensuring we stay aligned on:
    - Create specifications for Phase 1 features
    - Use `writing-plans` skill to break into tasks
    - Follow governance workflow for all features
+```
+
+</step>
+
+</process>
+
+<success_criteria>
+- [ ] `.wingman/config/CONSTITUTION.md` created with core principles
+- [ ] `.wingman/ROADMAP.md` created with project phases
+- [ ] `.wingman/issues/README.md` and `.wingman/specifications/README.md` created
+- [ ] Git hooks configured (if applicable)
+- [ ] `CLAUDE.md` updated with governance references
+- [ ] Welcome/orientation issue created for the project
+- [ ] User handoff summary provided with next steps
+</success_criteria>
 
 ## References
 

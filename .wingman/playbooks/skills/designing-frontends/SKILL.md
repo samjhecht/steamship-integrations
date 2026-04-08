@@ -1,4 +1,5 @@
 ---
+name: designing-frontends
 description: Creates frontend designs with accessibility, responsive layout, and design system integration. Use when designing user interfaces, implementing visual components, or establishing frontend architecture.
 ---
 
