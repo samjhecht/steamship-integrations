@@ -1,0 +1,33 @@
+name: post-merge-hygiene
+version: 2
+description: "Post-merge hygiene -- verify issue closure, detect staleness, summarize"
+
+defaults:
+  agent: hygiene-bot
+  model: sonnet
+  permissionMode: bypassPermissions
+  settingSources: ["project"]
+
+safety:
+  maxLoopRetries: 1
+  maxStepTimeoutMs: 300000
+  failOnStepError: false
+
+phases:
+  - name: closure-verification
+    prompt: closure-verification
+    output: closureResult
+    input:
+      pr_number: "{{pr_number}}"
+
+  - name: staleness-detection
+    prompt: staleness-detection
+    output: stalenessResult
+
+  - name: summary
+    prompt: hygiene-summary
+    output: summaryResult
+    input:
+      closureResult: "{{closureResult}}"
+      stalenessResult: "{{stalenessResult}}"
+      pr_number: "{{pr_number}}"

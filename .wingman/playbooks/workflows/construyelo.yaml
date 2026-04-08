@@ -1,0 +1,63 @@
+name: construyelo
+version: 1
+description: "Full spec-to-PR pipeline -- plan, review, implement, review PR"
+
+defaults:
+  agent: planner
+  model: opus
+  # SAFETY TRADEOFF: bypassPermissions is required for headless worktree execution.
+  # All phases (including plan/review) run without a TTY, so any permission mode
+  # that prompts (default, acceptEdits) would hang, and dontAsk would reject
+  # Bash calls needed for gh commands and git operations.
+  # The safety boundary is the agent's declared tools list (in agent definitions),
+  # which gates tool *availability*. permissionMode is a secondary gate that
+  # controls whether available tools require user approval before execution.
+  # TODO: Implement engine-level scoped permission mode (per-tool allow/deny)
+  # using the SDK's allowedTools + canUseTool APIs to avoid blanket bypass.
+  permissionMode: bypassPermissions
+  settingSources:
+    - project
+
+safety:
+  maxLoopRetries: 3
+  maxStepTimeoutMs: 900000      # 15 min idle (resets on each agent message)
+  maxStepWallTimeMs: 3600000    # 1 hour hard ceiling per step
+  failOnStepError: true
+
+phases:
+  - name: plan
+    skill: writing-plans
+    agent: planner
+
+    requiredInputs:
+      - spec_reference
+    input:
+      spec_reference: "{{spec_reference}}"
+
+  - name: review
+    skill: review-plan
+    agent: reviewer
+
+    input:
+      spec_reference: "{{spec_reference}}"
+    output: review_result
+    requireOutput: false
+
+  - name: implement
+    skill: implement-plan
+    agent: implementer
+
+    permissionMode: bypassPermissions
+    input:
+      spec_reference: "{{spec_reference}}"
+      in_workflow_worktree: "{{in_workflow_worktree}}"
+    output: impl_result
+
+  - name: review-pr
+    skill: review-pr
+    agent: reviewer
+
+    input:
+      pr_number: "{{impl_result.prNumber}}"
+    output: pr_review_result
+    requireOutput: false

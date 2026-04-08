@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.4.0",
+  "description": "Default wingman workspace schema",
+  "workspace": {
+    "root": ".wingman",
+    "description": "Central wingman workspace directory"
+  },
+  "directories": {
+    "issues": {
+      "path": ".wingman/issues",
+      "description": "Issue tracking files",
+      "gitTracked": true,
+      "subdirectories": {
+        "archived": {
+          "path": ".wingman/issues/archived",
+          "description": "Archived closed/cancelled issues"
+        }
+      }
+    },
+    "specifications": {
+      "path": ".wingman/specifications",
+      "description": "Feature specifications",
+      "gitTracked": true,
+      "subdirectories": {
+        "archived": {
+          "path": ".wingman/specifications/archived",
+          "description": "Archived closed/cancelled specifications"
+        }
+      }
+    },
+    "notes": {
+      "path": ".wingman/notes",
+      "description": "Notes, reference material, and ideas (replaces memos/ and ideas/)",
+      "gitTracked": true
+    },
+    "memory": {
+      "path": ".wingman/memory",
+      "description": "Agent-managed compacted knowledge base",
+      "gitTracked": true,
+      "subdirectories": {
+        "knowledge-base": {
+          "path": ".wingman/memory/knowledge-base",
+          "description": "Structured reference material"
+        }
+      }
+    },
+    "rules": {
+      "path": ".wingman/rules",
+      "description": "Project rules and standards (coding, testing, security). Delivered to agent context via .claude/rules/ symlinks.",
+      "gitTracked": true
+    },
+    "plans": {
+      "path": ".wingman/plans",
+      "description": "Implementation plans",
+      "gitTracked": true
+    },
+    "cache": {
+      "path": ".wingman/cache",
+      "description": "Runtime cache",
+      "gitTracked": false,
+      "subdirectories": {
+        "workflows": {
+          "path": ".wingman/cache/workflows",
+          "description": "Workflow execution state files"
+        }
+      }
+    },
+    "config": {
+      "path": ".wingman/config",
+      "description": "Configuration files",
+      "gitTracked": true
+    },
+    "playbooks": {
+      "path": ".wingman/playbooks",
+      "description": "Playbook assets for prompts, workflows, and templates",
+      "gitTracked": true,
+      "subdirectories": {
+        "prompts/system": {
+          "path": ".wingman/playbooks/prompts/system",
+          "description": "System prompt files for agent definitions"
+        },
+        "prompts": {
+          "path": ".wingman/playbooks/prompts",
+          "description": "Prompt template files"
+        },
+        "workflows": {
+          "path": ".wingman/playbooks/workflows",
+          "description": "Workflow definition files"
+        },
+        "templates": {
+          "path": ".wingman/playbooks/templates",
+          "description": "Template files for scaffolding"
+        },
+        "skills": {
+          "path": ".wingman/playbooks/skills",
+          "description": "Governance skill definitions (editable copies)"
+        }
+      }
+    },
+    "sessions": {
+      "path": ".wingman/sessions",
+      "description": "Session state and history",
+      "gitTracked": false
+    }
+  },
+  "governanceFiles": {
+    "constitution": {
+      "path": ".wingman/config/CONSTITUTION.md",
+      "description": "Project constitution",
+      "required": false
+    },
+    "roadmap": {
+      "path": ".wingman/ROADMAP.md",
+      "description": "Strategic roadmap",
+      "required": false
+    }
+  },
+  "readmeFiles": {
+    "issues": {
+      "path": ".wingman/issues/README.md",
+      "description": "Issues README"
+    },
+    "specifications": {
+      "path": ".wingman/specifications/README.md",
+      "description": "Specifications README"
+    }
+  },
+  "gitignorePatterns": [
+    "cache/",
+    "sessions/"
+  ],
+  "artifactTypes": {
+    "issue": {
+      "directory": "issues",
+      "description": "Work items"
+    },
+    "specification": {
+      "directory": "specifications",
+      "description": "Feature specs"
+    },
+    "constitutional-amendment": {
+      "directory": "issues",
+      "description": "Proposed changes to constitutional principles"
+    },
+    "open-question": {
+      "directory": "issues",
+      "description": "Unresolved decisions for future discussion"
+    },
+    "idea": {
+      "directory": "issues",
+      "description": "Captured ideas for future consideration"
+    }
+  },
+  "mcpConfiguration": {
+    "issuesDirectory": ".wingman/issues",
+    "specificationsDirectory": ".wingman/specifications",
+    "notesDirectory": ".wingman/notes",
+    "memoryDirectory": ".wingman/memory"
+  }
+}

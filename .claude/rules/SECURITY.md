@@ -1,0 +1,1 @@
+../../.wingman/rules/SECURITY.md

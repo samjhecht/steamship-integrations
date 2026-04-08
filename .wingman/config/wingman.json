@@ -1,0 +1,84 @@
+{
+  "version": "1.4.0",
+  "scope": "project",
+  "issues": {
+    "provider": "github",
+    "github": {
+      "owner": "samjhecht",
+      "repo": "steamship-integrations",
+      "projectName": "Steamship Integrations Roadmap",
+      "projectNumber": 6
+    }
+  },
+  "rules": {
+    "active": [
+      "CODING.md",
+      "LOGGING.md",
+      "SECURITY.md",
+      "TESTING.md",
+      "coding/UNIVERSAL_CODING_STANDARDS.md",
+      "security/TYPESCRIPT.md"
+    ],
+    "profiles": {
+      "review-code": {
+        "rules": [
+          "CODING",
+          "TESTING",
+          "SECURITY"
+        ],
+        "agents": [
+          "code-quality-reviewer"
+        ]
+      },
+      "review-security": {
+        "rules": [
+          "SECURITY"
+        ],
+        "agents": [
+          "security-reviewer"
+        ]
+      },
+      "review-testing": {
+        "rules": [
+          "TESTING"
+        ],
+        "agents": [
+          "testing-reviewer"
+        ]
+      },
+      "review-docs": {
+        "rules": [
+          "DOCUMENTATION"
+        ],
+        "agents": [
+          "completeness-reviewer"
+        ]
+      },
+      "review-plan": {
+        "rules": [
+          "CODING",
+          "TESTING",
+          "SECURITY"
+        ],
+        "agents": [
+          "plan-reviewer"
+        ]
+      },
+      "coding": {
+        "rules": [
+          "CODING",
+          "TESTING",
+          "SECURITY"
+        ],
+        "agents": [
+          "implementer",
+          "planner"
+        ]
+      },
+      "all": {
+        "rules": "*",
+        "agents": []
+      }
+    }
+  }
+}

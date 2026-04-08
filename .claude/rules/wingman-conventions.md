@@ -1,0 +1,1 @@
+@../../.wingman/config/conventions.md

@@ -1,0 +1,5 @@
+# Governance gitignore - generated from workspace-schema.json
+
+# Runtime data (don't commit)
+cache/
+sessions/

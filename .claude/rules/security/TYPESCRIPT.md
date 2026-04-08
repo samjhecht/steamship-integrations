@@ -1,0 +1,1 @@
+../../../.wingman/rules/security/TYPESCRIPT.md
